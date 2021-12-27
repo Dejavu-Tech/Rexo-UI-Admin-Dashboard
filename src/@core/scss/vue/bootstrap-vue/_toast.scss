@@ -1,0 +1,36 @@
+// 调色板
+@import '~@core/scss/base/core/colors/palette-variables.scss';
+
+// 上传根据事件类别的边框颜色
+@each $color_name, $color in $colors {
+  @each $color_type, $color_value in $color {
+    @if $color_type== 'base' {
+      .b-toast-#{$color_name} {
+        .toast-header {
+          background-color: $color_value !important;
+          color: $white !important;
+          .close {
+            color: $white;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.b-toast {
+  &.b-toast-solid {
+    .toast {
+      background-color: $white;
+      color: $body-color;
+    }
+  }
+}
+
+// 关闭按钮垂直对齐
+.toast-header {
+  .close {
+    margin-bottom: 2px !important;
+  }
+}

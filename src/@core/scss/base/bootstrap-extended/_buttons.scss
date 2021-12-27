@@ -1,0 +1,73 @@
+// Buttons 按钮
+
+// 渐变阴影按钮
+.btn {
+  box-shadow: none;
+  font-weight: 500;
+
+  &[class*='bg-gradient-'] {
+    transition: all 0.2s ease;
+    // 按钮悬停的渐变过渡
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  // 图标按钮填充
+  &.btn-icon {
+    padding: 0.715rem 0.736rem;
+  }
+  &.btn-sm {
+    &.btn-icon {
+      padding: 0.5rem;
+      line-height: 0.5;
+    }
+  }
+  &.btn-lg {
+    &.btn-icon {
+      padding: 1rem;
+      line-height: 0.75;
+    }
+  }
+
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:not(:disabled):not(.disabled):active:focus,
+  &:not(:disabled):not(.disabled).active:focus {
+    box-shadow: none !important;
+  }
+
+  // 按钮内的图标
+  .feather {
+    vertical-align: bottom;
+  }
+  .qq {
+    vertical-align: bottom;
+  }
+  .wechat {
+    vertical-align: bottom;
+  }
+}
+
+// 输入框按钮涟漪效果（未启用）
+.btn.waves-input-wrapper {
+  padding: 0;
+}
+
+@include media-breakpoint-down(sm) {
+  .btn-sm-block {
+    display: block;
+    width: 100%;
+  }
+}
+
+// 光标指针样式设置为继承父级（原则上如果按钮被禁用，按钮中的光标指针应被删除）
+.waves-effect {
+  cursor: inherit;
+}

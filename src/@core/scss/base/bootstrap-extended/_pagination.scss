@@ -1,0 +1,305 @@
+// Pagination 分页组件
+
+// 页数、第一页和最后一页的默认样式
+.page-item {
+  border-radius: 5rem;
+
+  &:not(.prev-item),
+  &:not(.next-item),
+  &:not(.first),
+  &:not(.last),
+  &:not(.active) {
+    .page-link {
+      line-height: 1.3;
+    }
+  }
+
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.previous,
+  &.prev,
+  &.next,
+  &.first,
+  &.last {
+    .page-link {
+      width: auto;
+    }
+  }
+
+  &.prev-item,
+  &.next-item {
+    .page-link {
+      transition: all 0.2s ease-out;
+    }
+  }
+
+  // 上一页和下一页的特定样式
+  &.prev-item {
+    margin-right: 0.3571rem;
+
+    .page-link {
+      border-radius: 50%;
+
+      &:before {
+        background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $pagination-color), '#', '%23'));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+        color: $body-color;
+        width: 8px;
+        height: 18px;
+        content: '';
+      }
+
+      &:hover {
+        background: $pagination-hover-bg;
+        color: $pagination-hover-color;
+      }
+      &:active,
+      &:hover {
+        background-color: $primary !important;
+        &:before {
+          background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $white), '#', '%23')) !important;
+        }
+      }
+    }
+    &.disabled {
+      .page-link {
+        &:before {
+          background-image: url(str-replace(
+            str-replace($chevron-left, 'currentColor', $pagination-disabled-color),
+            '#',
+            '%23'
+          ));
+        }
+      }
+    }
+
+    & ~ .page-item:nth-child(2) {
+      border-top-left-radius: 5rem;
+      border-bottom-left-radius: 5rem;
+      .page-link {
+        border-top-left-radius: 5rem !important;
+        border-bottom-left-radius: 5rem !important;
+      }
+    }
+
+    & ~ .page-item:nth-last-child(2) {
+      border-top-right-radius: 5rem;
+      border-bottom-right-radius: 5rem;
+      .page-link {
+        border-top-right-radius: 5rem !important;
+        border-bottom-right-radius: 5rem !important;
+      }
+    }
+  }
+
+  &.next-item {
+    margin-left: 0.3571rem;
+
+    .page-link {
+      border-radius: 50%;
+
+      &:after {
+        background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $pagination-color), '#', '%23'));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+        width: 8px;
+        height: 18px;
+        content: '';
+      }
+
+      &:hover {
+        background: $pagination-hover-bg;
+        color: $pagination-hover-color;
+      }
+      &:active,
+      &:hover {
+        background-color: $primary !important;
+        &:after {
+          background-image: url(str-replace(
+            str-replace($chevron-right, 'currentColor', $white),
+            '#',
+            '%23'
+          )) !important;
+        }
+      }
+    }
+    &.disabled {
+      .page-link {
+        &:after {
+          background-image: url(str-replace(
+            str-replace($chevron-right, 'currentColor', $pagination-disabled-color),
+            '#',
+            '%23'
+          ));
+        }
+      }
+    }
+  }
+
+  // 上一页和下一页的通用样式
+  &.prev,
+  &.previous {
+    .page-link {
+      &:before {
+        background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $pagination-color), '#', '%23'));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+        color: $body-color;
+        width: 12px;
+        height: 18px;
+        content: '';
+      }
+      // &:active,
+      &:hover {
+        &:before {
+          background-image: url(str-replace(
+            str-replace($chevron-left, 'currentColor', $pagination-active-color),
+            '#',
+            '%23'
+          )) !important;
+        }
+      }
+    }
+    &.disabled {
+      .page-link {
+        &:before {
+          background-image: url(str-replace(
+            str-replace($chevron-left, 'currentColor', $pagination-disabled-color),
+            '#',
+            '%23'
+          ));
+        }
+      }
+    }
+  }
+  &.next {
+    .page-link {
+      &:after {
+        background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $pagination-color), '#', '%23'));
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 14px;
+        color: $body-color;
+        width: 12px;
+        height: 18px;
+        content: '';
+      }
+      // &:active,
+      &:hover {
+        &:after {
+          background-image: url(str-replace(
+            str-replace($chevron-right, 'currentColor', $primary),
+            '#',
+            '%23'
+          )) !important;
+        }
+      }
+    }
+    &.disabled {
+      .page-link {
+        &:after {
+          background-image: url(str-replace(
+            str-replace($chevron-right, 'currentColor', $pagination-disabled-color),
+            '#',
+            '%23'
+          ));
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    .page-link {
+      color: $pagination-disabled-color;
+    }
+  }
+
+  // 自定义页面跳转
+  .page-link {
+    border: none;
+    margin: 0;
+    margin-left: 0;
+    font-size: 1rem;
+    min-width: 2.286rem;
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  // 激活态页数
+  &.active {
+    background-color: $pagination-bg;
+    border-radius: 0;
+
+    .page-link {
+      z-index: 3;
+      border-radius: 5rem;
+      background-color: $primary;
+      color: $white !important;
+      font-weight: 600;
+    }
+  }
+
+  // 分页组件第一子项（非上一页）
+  &:first-child:not(.prev-item) {
+    &.active {
+      border-top-left-radius: 1.428rem;
+      border-bottom-left-radius: 1.428rem;
+      .page-link {
+        border-radius: 5rem;
+      }
+    }
+    .page-link {
+      border-top-left-radius: 1.428rem;
+      border-bottom-left-radius: 1.428rem;
+    }
+  }
+
+  // 分页组件最后子项（非下一页）
+  &:last-child:not(.next-item) {
+    &.active {
+      border-top-right-radius: 1.428rem;
+      border-bottom-right-radius: 1.428rem;
+      .page-link {
+        border-radius: 5rem;
+      }
+    }
+    .page-link {
+      border-top-right-radius: 1.428rem;
+      border-bottom-right-radius: 1.428rem;
+    }
+  }
+}
+
+// 分页字号和最小宽度
+.pagination {
+  // 大号分页
+  &.pagination-lg {
+    .page-item {
+      .page-link {
+        font-size: $pagination-font-size-lg;
+        min-width: 2.6rem;
+      }
+    }
+  }
+  // 小号分页
+  &.pagination-sm {
+    .page-item {
+      .page-link {
+        font-size: $pagination-font-size-sm;
+        min-width: 2rem;
+      }
+    }
+  }
+}

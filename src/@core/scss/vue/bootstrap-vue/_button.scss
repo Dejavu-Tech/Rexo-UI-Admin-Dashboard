@@ -1,0 +1,10 @@
+// 切换按钮激活态盒子阴影
+.btn-group-toggle,
+.btn-group-toggle {
+  :not([class*='btn-outline-']) {
+    &.active,
+    &:active {
+      box-shadow: none;
+    }
+  }
+}

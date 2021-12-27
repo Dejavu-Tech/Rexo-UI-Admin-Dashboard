@@ -1,0 +1,45 @@
+// Popovers 气泡弹窗
+
+.popover {
+  box-shadow: $popover-box-shadow;
+  // 弹窗标题
+  .popover-header {
+    @include font-size(1.07rem);
+    border: 1px solid $popover-header-bg;
+  }
+  // 弹窗主体
+  .popover-body {
+    border: 1px solid $popover-border-color;
+    border-top-color: $popover-bg;
+    border-bottom-left-radius: $popover-border-radius;
+    border-bottom-right-radius: $popover-border-radius;
+  }
+  // 弹窗底部箭头颜色与标题一致
+  &.bs-popover-bottom {
+    .arrow:after {
+      border-bottom-color: $popover-header-bg;
+    }
+  }
+}
+// 箭头边框
+.bs-popover-top {
+  > .arrow {
+    &::after {
+      bottom: $popover-border-width + 1px;
+    }
+  }
+}
+.bs-popover-right {
+  > .arrow {
+    &::after {
+      left: $popover-border-width + 1px;
+    }
+  }
+}
+.bs-popover-left {
+  > .arrow {
+    &::after {
+      right: $popover-border-width + 1px;
+    }
+  }
+}

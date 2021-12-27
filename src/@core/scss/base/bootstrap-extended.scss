@@ -1,0 +1,46 @@
+// ================================================================================================
+//  文件名：bootstrap-extended.scss
+//  描述：已修改的 Bootstrap 文件列表。不包括尚未修改的文件
+//  ----------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ================================================================================================
+
+@import 'bootstrap-extended/include';
+@import 'components/include';
+
+// 自定义模板混入
+@import 'core/mixins/alert'; // 自定义模板混入
+
+// 核心 CSS
+@import 'bootstrap-extended/reboot';
+@import 'bootstrap-extended/helper';
+@import 'bootstrap-extended/type';
+@import 'bootstrap-extended/code';
+@import 'bootstrap-extended/tables';
+@import 'bootstrap-extended/forms';
+@import 'bootstrap-extended/buttons';
+@import 'bootstrap-extended/button-group';
+
+// 组件
+@import 'bootstrap-extended/dropdown';
+@import 'bootstrap-extended/navbar';
+@import 'bootstrap-extended/card';
+@import 'bootstrap-extended/breadcrumb';
+@import 'bootstrap-extended/badge';
+@import 'bootstrap-extended/nav';
+@import 'bootstrap-extended/alert';
+@import 'bootstrap-extended/media';
+@import 'bootstrap-extended/progress';
+@import 'bootstrap-extended/list-group';
+@import 'bootstrap-extended/toast';
+@import 'bootstrap-extended/collapse';
+@import 'bootstrap-extended/pagination';
+
+// JS 组件
+@import 'bootstrap-extended/modal';
+@import 'bootstrap-extended/popover';
+
+// 工具类
+@import 'bootstrap-extended/utilities';

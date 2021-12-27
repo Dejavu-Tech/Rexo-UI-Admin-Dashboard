@@ -1,0 +1,35 @@
+// 标题文本居中对齐
+.b-time-header {
+  output > bdi {
+    line-height: 1.85;
+  }
+}
+
+// 更新样式
+.b-time {
+  .bi-circle-fill {
+    height: 10px;
+    width: 10px;
+    fill: $secondary;
+  }
+  .bi-chevron-up {
+    height: 10px;
+    width: 10px;
+  }
+
+  .b-form-spinbutton {
+    + .flex-column:not(.b-time-ampm) {
+      margin-left: 0.4rem;
+      margin-right: 0.4rem;
+    }
+
+    output.border-bottom.border-top {
+      border: none !important;
+    }
+  }
+
+  // 重置悬停时图标的缩放比例
+  .b-form-spinbutton .btn:hover:not(:disabled) > div > .b-icon {
+    transform: scale(1);
+  }
+}

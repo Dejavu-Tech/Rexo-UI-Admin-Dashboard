@@ -1,0 +1,466 @@
+// ================================================================================================
+//  文件名：content.scss
+//  描述：适配不同屏幕大小、布局和设备（桌面或移动端）的页面内容层别 SCSS
+//  --------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ==============================================================================================
+
+// 展开和折叠统计信息的左侧区域边距左侧宽度和边距
+@import '../mixins/main-menu-mixin';
+
+html {
+  font-size: $base-font-size;
+  height: 100%;
+  letter-spacing: 0.01rem;
+  body {
+    height: 100%;
+    background-color: $body-bg;
+    direction: $body-direction;
+    // 段落行高
+    p {
+      line-height: 1.5rem;
+    }
+  }
+  .content {
+    padding: 0;
+    position: relative;
+    transition: 300ms ease all;
+    backface-visibility: hidden;
+    min-height: calc(100% - #{$footer-height});
+    margin-left: $menu-expanded-width;
+    &.app-content {
+      padding: calc(#{$content-padding} + #{$navbar-height} + #{$floating-nav-margin}) #{$content-padding} 0;
+      &.show-overlay {
+        .content-overlay {
+          z-index: 10;
+          opacity: 1;
+          ~ .header-navbar-shadow {
+            display: none;
+          }
+        }
+      }
+      .content-overlay {
+        position: fixed;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($black, 0.5);
+        cursor: pointer;
+        transition: all 0.7s, z-index 0s;
+        z-index: -1;
+      }
+      .content-area-wrapper {
+        display: flex;
+        position: relative;
+        overflow: hidden; // 用于应用
+        .content-wrapper,
+        .content-body {
+          height: 100%;
+        }
+      }
+    }
+    .body-content-overlay {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+      display: block;
+      z-index: 4;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s ease;
+      &.show {
+        visibility: visible;
+        transition: all 0.3s ease;
+        opacity: 1;
+        background-color: rgba($black, 0.2);
+        border-radius: $border-radius/2;
+      }
+    }
+    .content-wrapper {
+      .content-header-title {
+        font-weight: 500;
+        color: $gray-400;
+        padding-right: $spacer;
+        border-right: 1px solid lighten($gray-600, 10%);
+      }
+      .content-header-right {
+        .dropdown-toggle {
+          &::after {
+            display: none;
+          }
+          i,
+          svg {
+            margin-right: 0;
+          }
+        }
+        .btn-icon {
+          padding: 0.8rem;
+          i,
+          svg {
+            height: $font-size-base;
+            width: $font-size-base;
+          }
+        }
+      }
+    }
+  }
+
+  // 看板应用类没有内容布局，所以添加下列类和选项
+  // 浮动副导航栏
+  .navbar-floating {
+    &.footer-static {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(
+            #{$content-padding},
+            #{$navbar-height},
+            #{$footer-height},
+            #{$floating-nav-margin}
+          );
+        }
+      }
+    }
+    &.footer-hidden {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(
+            #{$content-padding},
+            #{$navbar-height},
+            0rem,
+            #{$floating-nav-margin},
+            0rem,
+            2
+          );
+        }
+      }
+    }
+    &.footer-fixed {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(
+            #{$content-padding},
+            #{$navbar-height},
+            #{$footer-height},
+            #{$floating-nav-margin},
+            0rem,
+            2
+          );
+        }
+      }
+    }
+  }
+
+  // 副导航栏隐藏
+  .navbar-hidden {
+    .app-content {
+      padding: #{$content-padding} #{$content-padding} 0 #{$content-padding} !important;
+    }
+    &.footer-static {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, 0rem, #{$footer-height});
+        }
+      }
+    }
+    &.footer-hidden {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, 0rem, 0rem, 0rem, 0rem, 2);
+        }
+      }
+    }
+    &.footer-fixed {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, 0rem, #{$footer-height}, 0rem, 0rem, 2);
+        }
+      }
+    }
+  }
+
+  // 内容随动导航栏
+  .navbar-static {
+    .main-menu {
+      top: 0;
+    }
+    .content {
+      min-height: calc(100% - calc(#{$navbar-height} + #{$footer-height}));
+    }
+    .app-content {
+      padding: #{$content-padding} #{$content-padding} 0 #{$content-padding};
+    }
+    &.footer-static {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, #{$navbar-height}, #{$footer-height});
+        }
+      }
+    }
+    &.footer-hidden {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, #{$navbar-height}, 0rem, 0rem, 0rem, 2);
+        }
+      }
+    }
+    &.footer-fixed {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(
+            #{$content-padding},
+            #{$navbar-height},
+            #{$footer-height},
+            0rem,
+            0rem,
+            2
+          );
+        }
+      }
+    }
+  }
+
+  // 粘性导航栏
+  .navbar-sticky {
+    .app-content {
+      padding: calc(#{$content-padding} + #{$navbar-height}) #{$content-padding} 0 #{$content-padding};
+    }
+    &.footer-static {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, #{$navbar-height}, #{$footer-height});
+        }
+      }
+    }
+    &.footer-hidden {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(#{$content-padding}, #{$navbar-height}, 0rem, 0rem, 0rem, 2);
+        }
+      }
+    }
+    &.footer-fixed {
+      .app-content {
+        .content-area-wrapper,
+        .kanban-wrapper {
+          @include content-area-wrapper-height(
+            #{$content-padding},
+            #{$navbar-height},
+            #{$footer-height},
+            0rem,
+            0rem,
+            2
+          );
+        }
+      }
+    }
+  }
+
+  // 粘性和静态导航栏的搜索框宽度
+  .navbar-static,
+  .navbar-sticky {
+    .nav.header-navbar {
+      .navbar-container {
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+        .search-input {
+          .search-list {
+            &.show {
+              width: 98%;
+              left: 1%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // 固定页脚
+  .footer-fixed {
+    .content {
+      &.app-content {
+        padding-bottom: $footer-height !important; // 页脚的固定高度增加额外的底部填充以协调
+      }
+    }
+  }
+
+  // 删除布局中第一列的左边距
+  [data-col='1-column'] {
+    .header-navbar {
+      // 浮动导航的自定义宽度
+      &.floating-nav {
+        width: calc(
+          100vw - (100vw - 100%) - calc(#{$content-padding} * 2)
+        ) !important; // 覆盖所有导航栏类型宽度
+      }
+      width: 100%; // 其他导航栏的全宽
+      left: 0 !important;
+    }
+    .content,
+    .footer {
+      margin-left: 0px !important;
+    }
+
+    // 水平导航布局
+    &.horizontal-layout {
+      .header-navbar {
+        width: 100% !important;
+      }
+      .app-content {
+        padding: calc(#{$content-padding} + #{$navbar-height} + #{$floating-nav-margin}) #{$content-padding} 0 #{$content-padding} !important; // 必须检查所有导航栏类型
+      }
+      &.footer-fixed {
+        .app-content {
+          padding: calc(#{$content-padding} + #{$navbar-height} + #{$floating-nav-margin}) #{$content-padding} #{$footer-height}
+            #{$content-padding} !important; // 必须检查所有导航栏类型
+        }
+      }
+    }
+  }
+
+  // 空白页
+  .blank-page {
+    .content {
+      margin-left: 0; // 两种情况下都不使用
+      // overflow-x: hidden, sm 屏幕中 y 轴溢出问题解决办法
+      &.app-content {
+        overflow: overlay;
+        overflow-x: hidden;
+        padding: 0 !important;
+        transition: none;
+        // 删除标题导航栏顶部阴影的空白
+        .header-navbar-shadow {
+          display: none;
+        }
+      }
+    }
+    // 空白页内容
+    .content-wrapper {
+      padding: 0 !important;
+      // 内容水平垂直居中
+      .flexbox-container {
+        display: flex;
+        align-items: center;
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        justify-content: center;
+      }
+    }
+  }
+
+  .pace {
+    .pace-progress {
+      background: $primary;
+    }
+  }
+}
+
+.app-content.center-layout {
+  overflow: hidden;
+}
+
+// 分离式和通用式布局
+@include media-breakpoint-up(lg) {
+  body {
+    // Normal sidebar
+    .content-right {
+      width: calc(100vw - (100vw - 100%) - #{$sidebar-width});
+      float: right;
+    }
+    .content-left {
+      width: calc(100vw - (100vw - 100%) - #{$sidebar-width});
+      float: left;
+    }
+    // 分离式边栏
+    .content-detached {
+      width: 100%;
+      &.content-right {
+        float: right;
+        margin-left: -$sidebar-width;
+        .content-body {
+          margin-left: calc(#{$sidebar-width} + #{$content-padding});
+        }
+      }
+      &.content-left {
+        float: left;
+        margin-right: -$sidebar-width;
+        .content-body {
+          margin-right: calc(#{$sidebar-width} + #{$content-padding});
+        }
+      }
+    }
+  }
+  .sidebar-right.sidebar-sticky {
+    float: right !important;
+    margin-left: -$sidebar-width;
+    width: $sidebar-width !important;
+    margin-top: $navbar-height + 1.25;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  html body .app-content {
+    padding: calc(#{$content-padding} - 0.8rem + #{$navbar-height} + #{$floating-nav-margin})
+      calc(#{$content-padding} - 0.8rem) 0 calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
+  }
+
+  // 导航栏跟随内容
+  html body.navbar-static .app-content {
+    padding: calc(#{$content-padding} - 0.8rem) calc(#{$content-padding} - 0.8rem) 0 calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
+  }
+
+  // 粘性导航栏
+  html body.navbar-sticky .app-content {
+    padding: calc(#{$content-padding} - 0.8rem + #{$navbar-height}) calc(#{$content-padding} - 0.8rem) 0
+      calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
+  }
+
+  // 导航栏隐藏
+  html body.navbar-hidden .app-content {
+    padding: calc(#{$content-padding} - 0.8rem) calc(#{$content-padding} - 0.8rem) 0 calc(#{$content-padding} - 0.8rem) !important; // - 0.8rem to reduce padding in small screen
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .navbar-static,
+  .navbar-sticky {
+    .app-content {
+      .header-navbar {
+        .navbar-container {
+          padding-left: 1rem;
+          padding-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+// IE 全屏幕样式
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  html.full-screen {
+    width: 100%;
+    .content.app-content {
+      height: 100%;
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+  }
+}

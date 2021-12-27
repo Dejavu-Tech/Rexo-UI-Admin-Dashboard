@@ -1,0 +1,269 @@
+// Nav 导航和胶囊导航组件
+
+.nav {
+  border-radius: 0.25rem;
+  // 导航组件的边框环绕
+  &.wrap-border {
+    border: 1px solid $nav-component-border-color;
+    li.nav-header {
+      margin: 0 0.5rem;
+    }
+    li.nav-item,
+    div {
+      padding: 2px 0.714rem;
+    }
+  }
+
+  &.nav-left {
+    .nav-item .nav-link {
+      justify-content: flex-start;
+    }
+  }
+
+  &.nav-right {
+    .nav-item .nav-link {
+      justify-content: flex-end;
+    }
+  }
+
+  // 方形边框
+  &.square-border {
+    border-radius: 0;
+    .nav-item {
+      .nav-link.active {
+        border-radius: 0;
+      }
+    }
+  }
+
+  // 主菜单切换
+  .modern-nav-toggle {
+    padding: 0;
+    margin: 1.571rem 0;
+  }
+
+  // 不带背景的下拉列表需要更改箭头颜色
+  .dropdown.show {
+    .dropdown-toggle {
+      &::after {
+        background-image: url(str-replace(str-replace($chevron-down, 'currentColor', $white), '#', '%23'));
+      }
+    }
+  }
+
+  .dropdown-toggle {
+    &:not(.active) {
+      &::after {
+        background-image: url(str-replace(str-replace($chevron-down, 'currentColor', $body-color), '#', '%23'));
+      }
+    }
+  }
+}
+.nav-pills,
+.nav-tabs {
+  // 带 SVG 图标的导航链接
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i,
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+// 胶囊导航
+.nav-pills {
+  margin-bottom: 1rem;
+  // 胶囊导航中的项
+  .nav-link {
+    padding: $btn-padding-y $btn-padding-x;
+    font-size: $btn-font-size;
+    line-height: $btn-font-size;
+    border: 1px solid transparent;
+    color: $headings-color;
+    &.active {
+      border-color: $nav-pills-link-active-bg;
+      box-shadow: 0 4px 18px -4px rgba($nav-pills-link-active-bg, 0.65);
+    }
+    &.disabled {
+      color: $nav-link-disabled-color;
+    }
+    &.dropdown-toggle::after {
+      left: 1px;
+    }
+  }
+
+  &.dropdown {
+    &.show {
+      .nav-link {
+        color: $white;
+      }
+      .dropdown-item {
+        &.active {
+          &:hover {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+
+  // 均分
+  &.nav-justified {
+    @include nav-justified;
+    @include nav-tabs-justified;
+    .nav-link {
+      display: block;
+
+      &.active {
+        border: none;
+
+        &:hover,
+        &:focus {
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+// 基本导航标签
+.nav-tabs {
+  margin-bottom: 1rem;
+  position: relative;
+  // 基本导航项
+  .nav-item {
+    position: relative;
+  }
+  .nav-link {
+    color: $body-color;
+    border: none;
+    min-width: auto;
+    font-weight: 450;
+    padding: 0.61rem 1.2rem;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+      content: '';
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(30deg, rgba($primary, 1), rgba($primary, 0.5)) !important;
+      transition: transform 0.3s;
+      transform: translate3d(0, 150%, 0);
+    }
+    &.active {
+      position: relative;
+      color: $primary;
+
+      &:after {
+        transform: translate3d(0, 0, 0);
+        // box-shadow: 0 0 8px 0 rgba($primary, 0.5) !important;
+      }
+    }
+
+    &.dropdown-toggle {
+      &::after {
+        left: 1px;
+      }
+    }
+  }
+  // 导航均分
+  &.nav-justified {
+    @include nav-justified;
+    @include nav-tabs-justified;
+
+    .nav-item {
+      a.nav-link {
+        display: block;
+        border-radius: 0;
+
+        &.active {
+          border: none;
+        }
+        &:hover {
+          border-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+// 标签垂直对齐
+.nav-vertical {
+  overflow: hidden;
+  .nav.nav-tabs {
+    // nav item styles for vertical nav tabs
+    .nav-item {
+      .nav-link {
+        margin-bottom: 0;
+        &:after {
+          transform: rotate(90deg) translate3d(0, 150%, 0);
+          left: 70%;
+        }
+        &.active {
+          &:after {
+            left: auto;
+            right: -1.4rem;
+            transform: rotate(90deg) translate3d(0, 225%, 0);
+            top: 1.25rem;
+            width: 2.14rem;
+          }
+        }
+      }
+    }
+
+    // 垂直左对齐
+    &.nav-left {
+      float: left;
+      display: table;
+      margin-right: 1rem;
+
+      ~ .tab-content {
+        .tab-pane {
+          display: none;
+          overflow-y: auto;
+          padding-left: 1rem;
+          &.active {
+            display: block;
+          }
+        }
+      }
+    }
+
+    // 垂直右对齐
+    &.nav-right {
+      float: right;
+      display: table;
+      margin-left: 1rem;
+
+      .nav-item {
+        .nav-link {
+          &.active {
+            &:after {
+              left: -0.9rem;
+              transform: rotate(90deg) translate3d(0, 10%, 0);
+            }
+          }
+        }
+      }
+
+      ~ .tab-content {
+        .tab-pane {
+          display: none;
+          overflow-y: auto;
+          padding-right: 1rem;
+          &.active {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+// 垂直导航链接
+
+@mixin nav-justified {
+  width: 100%;
+
+  .nav-item {
+    float: none;
+  }
+
+  .nav-link {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  > .dropdown .dropdown-menu {
+    top: auto;
+    left: auto;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .nav-item {
+      display: block;
+      width: 1%;
+    }
+    .nav-link {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// 将边框移动到指定的锚点而不是列表底部效果更佳。混入调整顶部的共享标签 '.nav-justified' 样式
+@mixin nav-tabs-justified {
+  .nav-link {
+    // 覆盖 '.nav-tabs' 边距
+    margin-right: 0;
+    border-radius: $border-radius;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .nav-link.active,
+    .nav-link.active:hover,
+    .nav-link.active:focus {
+      border-bottom-color: transparent; //$nav-tabs-justified-active-link-border-color;
+    }
+  }
+}

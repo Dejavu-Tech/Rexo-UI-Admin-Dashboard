@@ -1,0 +1,51 @@
+@import '../../bootstrap-extended/include';
+@import '../../components/include';
+
+// 可拖动光标-抓取
+.draggable {
+  cursor: grab;
+  .gu-unselectable & {
+    cursor: grabbing;
+  }
+}
+
+// 多个列表
+#multiple-list-group-a,
+#multiple-list-group-b {
+  min-height: 5.714rem;
+}
+
+// 手柄
+#dd-with-handle {
+  .list-group {
+    min-height: 5.714rem;
+    .handle {
+      padding: 0 5px;
+      margin-right: 5px;
+      background-color: rgba($black, 0.1);
+      cursor: move;
+      font-size: 1.2rem;
+    }
+  }
+}
+.gu-mirror {
+  .handle {
+    padding: 0 5px;
+    margin-right: 5px;
+    background-color: rgba($black, 0.1);
+    cursor: move;
+    font-size: 1.2rem;
+  }
+}
+
+// 深色布局
+.dark-layout {
+  // 拖放移动元素
+  .gu-mirror {
+    &:not(.badge):not([class*='col-']) {
+      background-color: $theme-dark-card-bg;
+      border-color: $theme-dark-border-color;
+      box-shadow: $theme-dark-box-shadow;
+    }
+  }
+}

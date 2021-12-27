@@ -1,0 +1,71 @@
+// ================================================================================================
+//  文件名：Footer.scss
+//  描述：主页脚样式
+//  ----------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ================================================================================================
+
+// 页面底部粘性页脚（底部固定）
+footer {
+  &.footer {
+    padding: 0.8rem $content-padding;
+    min-height: $footer-height;
+    transition: 300ms ease all;
+
+    // 心形 SVG 图标
+    span {
+      i,
+      svg {
+        height: 1.51rem;
+        width: 1.51rem;
+        font-size: 1.51rem;
+        margin-left: 0.5rem;
+        color: $danger;
+      }
+    }
+    .scroll-top {
+      padding: 0.81rem 0.83rem;
+    }
+  }
+
+  // 阴影和边框选项
+  &.footer-shadow {
+    box-shadow: $box-shadow;
+  }
+  &.footer-border {
+    border-top: 1px solid $border-color;
+  }
+}
+
+// 固定页脚
+.footer-fixed {
+  footer {
+    position: fixed !important;
+    z-index: 1030;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    // 浅色模式页脚
+    &.footer-light {
+      background: $white;
+      box-shadow: $box-shadow;
+    }
+    // 深色模式页脚
+    &.footer-dark {
+      background: $gray-600;
+      color: $white;
+    }
+  }
+}
+
+// 页脚滚动顶部按钮
+.scroll-top {
+  position: fixed;
+  bottom: 5%;
+  right: 30px;
+  display: none;
+  z-index: 99;
+}

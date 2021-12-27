@@ -1,0 +1,14 @@
+@import '~@core/scss/base/pages/page-profile.scss';
+
+// 个人主页头部
+#user-profile {
+  .profile-header {
+    .profile-header-nav {
+      .navbar {
+        .navbar-toggler {
+          border: none;
+        }
+      }
+    }
+  }
+}

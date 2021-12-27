@@ -1,0 +1,63 @@
+// ================================================================================================
+//  文件名：page-blog.scss
+//  描述：博客相关页面 SCSS 文件
+//  ----------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ================================================================================================
+
+@import '../bootstrap-extended/include';
+@import '../components/include';
+
+// 博客列表
+.blog-list-wrapper {
+  // 限制博客标题为 2 行
+  .blog-title-truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  // 限制博客内容为 3 行
+  .blog-content-truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// 博客详情
+.blog-detail-wrapper {
+  .blog-detail-share .dropdown-menu {
+    min-width: auto;
+  }
+}
+
+// 博客右侧边栏
+.blog-sidebar {
+  .blog-recent-posts {
+    img {
+      object-fit: cover;
+    }
+    // 博客文章标题为链接时鼠标悬停于链接上
+    .text-body-heading:hover {
+      color: $link-hover-color !important;
+    }
+  }
+
+  .blog-recent-post-title,
+  .blog-category-title {
+    line-height: 23px;
+    letter-spacing: 0;
+  }
+}
+
+// 博客编辑
+.blog-edit-wrapper {
+  .border {
+    border-color: $input-border-color !important;
+  }
+}

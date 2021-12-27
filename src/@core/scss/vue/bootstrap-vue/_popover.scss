@@ -1,0 +1,71 @@
+// 调色板
+@import '~@core/scss/base/core/colors/palette-variables.scss';
+
+.popover.b-popover {
+  // 气泡弹窗顶部定位
+  &.bs-popover-top {
+    .arrow {
+      &::before {
+        border-top-color: $border-color;
+      }
+      &::after {
+        border-top-color: $white;
+      }
+    }
+  }
+  // 气泡弹窗左定位
+  &.bs-popover-left {
+    .arrow {
+      &::before {
+        border-left-color: $border-color;
+      }
+      &::after {
+        border-left-color: $white;
+      }
+    }
+  }
+  // 气泡弹窗右定位
+  &.bs-popover-right {
+    .arrow {
+      &::before {
+        border-right-color: $border-color;
+      }
+      &::after {
+        border-right-color: $white;
+      }
+    }
+  }
+}
+
+// 气泡弹窗变量颜色
+@each $color_name, $color in $colors {
+  @each $color_type, $color_value in $color {
+    @if $color_type== 'base' {
+      .popover.b-popover {
+        &.b-popover-#{$color_name} {
+          background-color: $white;
+          border-color: $border-color;
+          z-index: 9999;
+          position: relative;
+          .popover-header {
+            background-color: $color_value;
+            border-color: $color_value;
+            color: $white;
+          }
+
+          // 箭头颜色根据变量而变化
+          &.bs-popover-bottom {
+            .arrow {
+              &::before {
+                border-bottom-color: $color_value;
+              }
+              &::after {
+                border-bottom-color: $color_value;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+// ===============================================================================================
+//  文件名：page-knowledge-base.scss
+//  描述：知识库页面 SCSS 文件
+//  ---------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ===============================================================================================
+
+@import '../bootstrap-extended/include';
+@import '../components/include';
+
+$svg-bg: #fcfcfc;
+
+// 知识库搜索栏背景
+.knowledge-base-bg {
+  background-size: cover;
+  background-color: rgba($primary, 0.12) !important;
+
+  // 知识库搜索栏
+  .kb-search-input {
+    .input-group {
+      // 移除内部焦点上的输入组框阴影
+      &:focus-within {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+//
+.kb-search-content-info {
+  .kb-search-content {
+    .card-img-top {
+      background-color: $svg-bg;
+    }
+  }
+  .no-result {
+    &.no-items {
+      display: none;
+    }
+  }
+}
+// 知识库标题
+.kb-title {
+  display: flex;
+  align-items: center;
+}
+
+// MD 及以上屏幕的搜索框宽度固定
+@include media-breakpoint-up(md) {
+  .knowledge-base-bg {
+    .kb-search-input {
+      .input-group {
+        width: 576px;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+// LG 及以上屏幕的搜索栏填充
+@include media-breakpoint-up(lg) {
+  .knowledge-base-bg {
+    .card-body {
+      padding: 8rem;
+    }
+  }
+}
+// MD 屏幕的搜索栏填充
+@include media-breakpoint-only(md) {
+  .knowledge-base-bg {
+    .card-body {
+      padding: 6rem;
+    }
+  }
+}

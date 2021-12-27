@@ -1,0 +1,51 @@
+@import '~@core/scss/base/plugins/forms/form-quill-editor.scss';
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
+@import '~quill/dist/quill.bubble.css';
+
+// 需要重写一些图标的颜色
+.quill-editor {
+  .ql-toolbar,
+  .ql-editor {
+    a,
+    button:hover,
+    .ql-picker:hover {
+      color: $primary;
+      .ql-fill {
+        fill: $primary;
+      }
+      .ql-stroke {
+        stroke: $primary;
+      }
+      .ql-picker-label:hover {
+        color: $primary;
+        .ql-stroke {
+          stroke: $primary;
+        }
+      }
+    }
+  }
+}
+
+// ? 设置工具栏和容器的圆角
+.quill-editor {
+  // 添加工具栏和容器顶部圆角（根据放置位置移除其中一个）
+  .ql-toolbar,
+  .ql-container {
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+  }
+
+  .ql-toolbar {
+    + .ql-container,
+    .ql-container + & {
+      // ? 如果容器/工具栏位于另一方下方时添加底部圆角
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+
+      // ? 如果容器/工具栏位于另一方上方时删除顶部圆角
+      border-top-right-radius: unset;
+      border-top-left-radius: unset;
+    }
+  }
+}

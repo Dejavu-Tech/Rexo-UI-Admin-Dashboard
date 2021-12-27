@@ -1,0 +1,133 @@
+// ================================================================================================
+//  文件名：app-chat-list.scss
+//  描述：聊天应用聊天区域页面的 SCSS 文件。
+//  ----------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ================================================================================================
+
+@import '../bootstrap-extended/include';
+@import '../components/include';
+
+@import '../core/colors/palette-variables';
+
+@import 'bootstrap/scss/mixins/_gradients';
+@import 'bootstrap/scss/mixins/gradients';
+
+// 变量
+$chat-image-back-color: #f2f0f7;
+$chat-head-footer-height: 65px;
+$chat-widget-head-footer-height: 56px;
+$chat-widget-height: 390px;
+
+// 用户聊天窗口
+.chat-app-window {
+  // 聊天内容
+  .user-chats {
+    background-color: $chat-image-back-color;
+    padding: 1rem;
+    position: relative;
+    height: calc(100% - #{$chat-head-footer-height} - #{$chat-head-footer-height});
+    .avatar {
+      img {
+        border: 2px solid $white;
+      }
+    }
+  }
+  .chat-app-form {
+    button {
+      min-width: 80px;
+    }
+  }
+  .active-chat {
+    height: inherit;
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      height: $chat-head-footer-height;
+      background-color: $white;
+      padding: 0 1rem;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  // 聊天区域
+  .chats {
+    .chat-avatar {
+      float: right;
+    }
+    .chat-body {
+      display: block;
+      margin: 10px 30px 0 0;
+      overflow: hidden;
+      .chat-content {
+        float: right;
+        padding: 0.7rem 1rem;
+        margin: 0 1rem 10px 0;
+        clear: both;
+        color: $white;
+        @include gradient-directional(map-get($primary-color, 'base'), map-get($primary-color, 'lighten-2'), 80deg);
+        border-radius: $border-radius;
+        box-shadow: 0 4px 8px 0 rgba($black, 0.12);
+        max-width: 75%;
+        p {
+          margin: 0;
+        }
+      }
+    }
+    // 聊天区域左侧
+    .chat-left {
+      .chat-avatar {
+        float: left;
+      }
+      .chat-body {
+        .chat-content {
+          float: left;
+          margin: 0 0 10px 1rem;
+          color: $body-color;
+          background: none;
+          background-color: lighten($white, 18%);
+        }
+      }
+    }
+  }
+  // 用户区域聊天表单
+  .chat-app-form {
+    height: $chat-head-footer-height;
+    padding: 0 1rem;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// 聊天小部件
+.chat-widget {
+  .card-header {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
+  .chat-app-window {
+    // 聊天内容
+    .user-chats {
+      background-color: $body-bg;
+      height: $chat-widget-height;
+    }
+    .chat-app-form {
+      border-top: 0;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      height: $chat-widget-head-footer-height;
+      .input-group-text,
+      .message {
+        border: 0;
+        padding-left: 0;
+      }
+      .input-group:not(.bootstrap-touchspin):focus-within {
+        box-shadow: none;
+      }
+    }
+  }
+}

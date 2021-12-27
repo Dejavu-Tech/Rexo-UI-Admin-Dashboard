@@ -1,0 +1,6 @@
+// 堆叠（垂直）开关底边距
+.custom-switch:not(.custom-control-inline) {
+  .custom-control-label {
+    margin-bottom: 0.5rem;
+  }
+}

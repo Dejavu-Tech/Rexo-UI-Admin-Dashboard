@@ -1,0 +1,428 @@
+// 核心变量和混入
+@import '~@core/scss/base/bootstrap-extended/include';
+@import '~@core/scss/base/core/colors/palette-variables.scss';
+
+body {
+  &.dark-layout {
+    // ------------------------------------------------
+    // 头像组件
+    // ------------------------------------------------
+    .b-avatar {
+      &.badge-secondary {
+        background-color: $theme-dark-body-bg;
+      }
+      .b-avatar-text {
+        span {
+          color: $white;
+        }
+      }
+      .avatar-icon {
+        color: $white;
+      }
+
+      &.avatar-border-2 {
+        img {
+          border-color: $theme-dark-border-color;
+        }
+      }
+    }
+
+    // 头像组
+    .b-avatar-group {
+      .b-avatar-group-inner {
+        .b-avatar {
+          box-shadow: 0 0 0 2px $theme-dark-card-bg, inset 0 0 0 1px rgba(40, 48, 70, 0.07);
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 徽章
+    // ------------------------------------------------
+    .badge {
+      color: $white;
+    }
+
+    // ------------------------------------------------
+    // 副导航栏
+    // ------------------------------------------------
+    .header-navbar {
+      &.navbar-light {
+        .navbar-brand {
+          color: $white;
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 宽高比组件
+    // ------------------------------------------------
+    .b-aspect {
+      border-color: $theme-dark-border-color;
+    }
+
+    // ------------------------------------------------
+    // 气泡弹窗
+    // ------------------------------------------------
+    .popover.b-popover {
+      // 气泡弹窗顶部定位
+      &.bs-popover-top {
+        .arrow {
+          &::before {
+            border-top-color: $theme-dark-border-color;
+          }
+          &::after {
+            border-top-color: $theme-dark-card-bg;
+          }
+        }
+      }
+      // 气泡弹窗左定位
+      &.bs-popover-left {
+        .arrow {
+          &::before {
+            border-left-color: $theme-dark-border-color;
+          }
+          &::after {
+            border-left-color: $theme-dark-card-bg;
+          }
+        }
+      }
+      // 气泡弹窗右定位
+      &.bs-popover-right {
+        .arrow {
+          &::before {
+            border-right-color: $theme-dark-border-color;
+          }
+          &::after {
+            border-right-color: $theme-dark-card-bg;
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 自定义范围
+    // ------------------------------------------------
+    .custom-range {
+      background-color: $theme-dark-input-bg;
+      border-color: $theme-dark-border-color;
+      &:focus {
+        background-color: $theme-dark-input-bg;
+        border-color: $primary;
+      }
+    }
+
+    // ------------------------------------------------
+    // 模态
+    // ------------------------------------------------
+    .modal-content {
+      .modal-header {
+        .close {
+          color: $white;
+        }
+      }
+      .modal-body {
+        color: $white;
+      }
+    }
+
+    // ------------------------------------------------
+    // 开关
+    // ------------------------------------------------
+    .custom-switch.switch-lg,
+    .custom-switch.switch-md {
+      .custom-control-label::before {
+        background-color: $theme-dark-body-bg;
+      }
+    }
+
+    // ------------------------------------------------
+    // 分页
+    // ------------------------------------------------
+    .pagination {
+      .page-item {
+        &.disabled {
+          .page-link {
+            // background-color: ;
+            color: $theme-dark-text-muted-color !important;
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 通知
+    // ------------------------------------------------
+    .b-toast {
+      .toast {
+        background-color: rgba($theme-dark-body-bg, 0.85);
+        color: $theme-dark-body-color;
+      }
+    }
+
+    // ------------------------------------------------
+    // 日历
+    // ------------------------------------------------
+    .b-calendar-header {
+      output {
+        background: $theme-dark-body-bg;
+        border-color: $theme-dark-border-color;
+        color: $theme-dark-body-color;
+      }
+    }
+    .b-calendar-grid {
+      &.form-control {
+        background: $theme-dark-body-bg;
+        border-color: $theme-dark-border-color;
+        .b-calendar-grid-caption {
+          color: $theme-dark-body-color;
+        }
+        .small {
+          background: $theme-dark-body-bg;
+        }
+        .bg-light {
+          background-color: $theme-dark-border-color !important;
+        }
+        .table-info {
+          span {
+            color: $black !important;
+          }
+        }
+      }
+      // 悬停颜色
+      .b-calendar-grid-body {
+        .col:not(.table-info) {
+          span.btn.rounded-circle {
+            &:hover {
+              background-color: $theme-dark-card-bg;
+            }
+          }
+        }
+      }
+      // 浅色按钮
+      .btn-light {
+        background-color: $theme-dark-card-bg;
+        border-color: $theme-dark-border-color;
+        color: $theme-dark-body-color;
+      }
+
+      // ------------------------------------------------
+      // 表格
+      // ------------------------------------------------
+
+      // 表格悬停颜色
+      .table-primary,
+      .table-primary > th,
+      .table-primary > td {
+        .btn-outline-light {
+          &:hover {
+            background-color: $theme-dark-body-bg !important;
+          }
+        }
+      }
+
+      .table.b-table {
+        thead,
+        tfoot {
+          > tr {
+            > [aria-sort='none'] {
+              .dark-layout & {
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Earrow-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-259.000000, -621.000000)' stroke='%23747A88' stroke-width='2'%3E%3Cg id='arrow-dark' transform='translate(260.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+              }
+            }
+
+            > [aria-sort='ascending'] {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Eactive-up-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-199.000000, -621.000000)' stroke-width='2'%3E%3Cg id='active-up-dark' transform='translate(200.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)' stroke='%23747A88'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up' stroke='%23B4B7BC'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+
+            > [aria-sort='descending'] {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Eactive-dow-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-229.000000, -621.000000)' stroke-width='2'%3E%3Cg id='active-dow-dark' transform='translate(230.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)' stroke='%23B4B7BC'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up' stroke='%23747A88'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+          }
+        }
+      }
+
+      @each $color_name, $color in $colors {
+        @each $color_type, $color_value in $color {
+          @if $color_type== 'base' {
+            // table only for dark
+            .b-table {
+              .table-#{$color_name} {
+                color: $body-color !important;
+                td {
+                  color: $body-color !important;
+                }
+              }
+              &.table-hover tbody tr th.table-#{$color_name},
+              &.table-hover tbody tr td.table-#{$color_name} {
+                background-color: rgba($color_value, 0.3);
+                color: $white !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 时间
+    // ------------------------------------------------
+    .b-time {
+      .b-time-header {
+        .form-control {
+          background-color: $theme-dark-input-bg;
+        }
+      }
+    }
+    .b-time[aria-disabled='true'] output,
+    .b-time[aria-readonly='true'] output,
+    .b-time output.disabled {
+      background-color: $theme-dark-card-bg;
+    }
+
+    // ------------------------------------------------
+    // 数字调节器
+    // ------------------------------------------------
+    .b-form-spinbutton {
+      &.form-control {
+        background-color: $theme-dark-input-bg;
+        border-color: $theme-dark-input-border-color;
+        color: $theme-dark-body-color;
+        svg {
+          color: $theme-dark-body-color;
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 评分
+    // ------------------------------------------------
+    .b-rating {
+      &.form-control {
+        background-color: $theme-dark-input-bg;
+        border-color: $theme-dark-input-border-color;
+        color: $theme-dark-body-color;
+      }
+      &.disabled,
+      &:disabled {
+        background-color: $theme-dark-input-disabled-bg;
+      }
+    }
+
+    // ------------------------------------------------
+    // 日期选择器
+    // ------------------------------------------------
+    .b-form-datepicker,
+    .b-form-timepicker {
+      &.form-control {
+        background-color: $theme-dark-input-bg;
+        border-color: $theme-dark-input-border-color;
+      }
+      &.is-valid {
+        border-color: $success;
+      }
+      &.is-invalid {
+        border-color: $danger;
+      }
+    }
+
+    // ------------------------------------------------
+    // 时间选择器
+    // ------------------------------------------------
+    .b-time-header {
+      output {
+        border-color: $theme-dark-border-color;
+        bdi {
+          color: $theme-dark-body-color;
+        }
+      }
+    }
+
+    // ------------------------------------------------
+    // 标签导航
+    // ------------------------------------------------
+    .b-form-tags {
+      &.form-control {
+        background-color: $theme-dark-input-bg;
+        border-color: $theme-dark-input-border-color;
+        color: $theme-dark-body-color;
+        box-shadow: none;
+        .b-form-tags-list {
+          .b-form-tag {
+            .b-form-tag-remove {
+              background-color: transparent !important;
+              box-shadow: none !important;
+            }
+          }
+        }
+      }
+    }
+    .b-form-tags-input {
+      color: $theme-dark-body-color;
+    }
+
+    // ------------------------------------------------
+    // 复选框
+    // ------------------------------------------------
+    .was-validated .custom-control-input:invalid ~ .custom-control-label::before,
+    .custom-control-input.is-invalid ~ .custom-control-label::before {
+      border-color: $danger !important;
+    }
+    .was-validated .custom-control-input:valid ~ .custom-control-label::before,
+    .custom-control-input.is-valid ~ .custom-control-label::before {
+      border-color: $success !important;
+    }
+
+    // ------------------------------------------------
+    // 选择器
+    // ------------------------------------------------
+    .was-validated .custom-select:valid,
+    .custom-select.is-valid {
+      border-color: $success;
+    }
+    .was-validated .custom-select:invalid,
+    .custom-select.is-invalid {
+      border-color: $danger;
+    }
+
+    // ------------------------------------------------
+    // 代码预览
+    // ------------------------------------------------
+    pre {
+      color: $theme-dark-body-color;
+    }
+
+    // ------------------------------------------------
+    // 侧边栏
+    // ------------------------------------------------
+    .b-sidebar {
+      // 侧边栏的浅色过渡手柄
+      &.bg-white {
+        background-color: $theme-dark-card-bg !important;
+      }
+
+      // 应用中标题添加黑色背景
+      .b-sidebar-body {
+        .content-sidebar-header {
+          background-color: $theme-dark-body-bg;
+        }
+      }
+    }
+
+    .horizontal-menu {
+      .horizontal-menu-wrapper {
+        .navbar-horizontal {
+          ul.dropdown-menu {
+            &::-webkit-scrollbar-thumb {
+              background: $theme-dark-body-bg;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: $theme-dark-border-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}

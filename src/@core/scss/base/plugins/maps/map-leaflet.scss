@@ -1,0 +1,38 @@
+// ================================================================================================
+//  文件名：map-leaflet.scss
+//  描述：Leaflet 地图插件自定义 SCSS 文件
+//  ----------------------------------------------------------------------------------------------
+//  项目：Rexo-UI - VueJS & HTML 网站/后台管理模板
+//  著作人：Albert.Z
+//  官网：http://www.rexotech.cn/
+// ================================================================================================
+
+.leaflet-map {
+  height: 400px;
+  z-index: 1;
+}
+
+html[data-textdirection='rtl'] {
+  .leaflet-map {
+    .leaflet-control-container {
+      .leaflet-left {
+        left: 0;
+        right: unset;
+        .leaflet-control-zoom,
+        .leaflet-control-layers {
+          margin-right: 0;
+          margin-left: 10px;
+        }
+      }
+      .leaflet-right {
+        right: 0;
+        left: unset;
+        .leaflet-control-zoom,
+        .leaflet-control-layers {
+          margin-right: 10px;
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}

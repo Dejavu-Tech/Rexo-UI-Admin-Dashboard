@@ -1,0 +1,4 @@
+// 表单控件里的评分焦点上删除盒子阴影
+output.b-rating.form-control:focus {
+  box-shadow: none;
+}
