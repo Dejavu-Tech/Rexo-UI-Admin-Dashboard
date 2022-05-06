@@ -62,7 +62,7 @@ const router = new VueRouter({
 })
 
 // ? 加载画面
-// 如果不使用加载画面，请删除所有钩子
+// 如果不使用加载画面，请删除所有hook
 router.afterEach(() => {
   // 删除初始加载
   const appLoading = document.getElementById('loading-bg')
