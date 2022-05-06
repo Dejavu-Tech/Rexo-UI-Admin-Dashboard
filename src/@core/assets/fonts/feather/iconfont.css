@@ -9,7 +9,7 @@
 }
 
 .feather {
-  // 使用 !important 以防止浏览器扩展出现更改字体的问题
+  /* 使用 !important 以防止浏览器扩展出现更改字体的问题 */
   font-family: 'feather' !important;
   speak: none;
   font-style: normal;
@@ -18,7 +18,7 @@
   text-transform: none;
   line-height: 1;
 
-  // 提升字体渲染
+  /* 提升字体渲染 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
