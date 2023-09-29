@@ -1,8 +1,0 @@
-@import '~@core/scss/base/plugins/extensions/ext-component-swiper.scss';
-
-// 在 DEMO 中设置活动幻灯片的不透明度
-.swiper-slide {
-  &.swiper-slide-active {
-    opacity: 1;
-  }
-}
