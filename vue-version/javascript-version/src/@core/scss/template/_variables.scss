@@ -1,0 +1,62 @@
+@forward "@core/scss/base/variables" with (
+  $default-layout-with-vertical-nav-navbar-footer-roundness: 6px !default,
+
+  $vertical-nav-navbar-style: "floating" !default,
+
+  // 垂直导航栏背景
+  $vertical-nav-background-color-rgb: var(--v-theme-background) !default,
+
+  // 使导航项和导航标签左右边距一致
+  $vertical-nav-horizontal-spacing: 0.875rem !default,
+
+  // 当不为第一个子元素时节标题的上边距
+  $vertical-nav-section-title-mt: 1.25rem !default,
+  $vertical-nav-navbar-elevation: 2 !default,
+
+  // 当垂直导航处于迷你状态（折叠但未悬停时）偏移 Logo
+  $vertical-nav-header-logo-translate-x-when-vertical-nav-mini: -0.4rem !default,
+
+  // 节标题下边距
+  $vertical-nav-section-title-mb: 0.375rem !default,
+
+  // 垂直导航图标
+  $vertical-nav-items-icon-size: 1.375rem !default,
+  $vertical-nav-items-nested-icon-size: 0.425rem !default,
+
+  // 页脚
+  $layout-vertical-nav-footer-height: 48px !default,
+
+  // 字体大小定义
+  $font-sizes: (
+    "xs": 0.6875rem,
+    "sm": 0.8125rem,
+    "base": 0.9375rem,
+    "lg": 1.125rem,
+    "xl": 1.375rem,
+    "2xl": 1.625rem,
+    "3xl": 2rem,
+    "4xl": 2.375rem,
+    "5xl": 3rem,
+    "6xl": 3.5rem,
+    "7xl": 4rem,
+    "8xl": 4.5rem,
+    "9xl": 5.25rem,
+  ) !default,
+
+  // 行高定义
+  $font-line-height: (
+    "xs": 0.9375rem,
+    "sm": 1.25rem,
+    "base": 1.3125rem,
+    "lg": 1.5rem,
+    "xl": 1.875rem,
+    "2xl": 2.25rem,
+    "3xl": 2.75rem,
+    "4xl": 3.25rem,
+    "5xl": 1,
+    "6xl": 1,
+    "7xl": 1,
+    "8xl": 1,
+    "9xl": 1
+  ) !default,
+);

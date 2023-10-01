@@ -1,0 +1,33 @@
+@use "@core/scss/template/placeholders" as *;
+
+.layout-horizontal-nav {
+  // 导航组
+  .nav-group,
+  .nav-link {
+    .popper-content {
+      .nav-link.sub-item a,
+      .nav-group-label {
+        @extend %nav-group-label-and-nav-link-style;
+      }
+
+      .nav-group.active {
+        > .popper-triggerer .nav-group-label {
+          color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+          font-weight: 500;
+        }
+      }
+
+      .nav-link.sub-item {
+        .router-link-active.router-link-exact-active {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .nav-group {
+    .nav-group-arrow {
+      font-size: 1.125rem;
+    }
+  }
+}

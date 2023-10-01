@@ -1,0 +1,44 @@
+.layout-blank {
+  .auth-wrapper {
+    min-block-size: calc(var(--vh, 1vh) * 100);
+  }
+
+  .auth-v1-top-shape,
+  .auth-v1-bottom-shape {
+    position: absolute;
+    block-size: 233px;
+    inline-size: 238px;
+  }
+
+  .auth-footer-mask {
+    position: absolute;
+    inset-block-end: 0;
+    min-inline-size: 100%;
+  }
+
+  .auth-card {
+    z-index: 1 !important;
+  }
+
+  .auth-illustration {
+    z-index: 1;
+  }
+
+  .auth-v1-top-shape {
+    inset-block-start: -77px;
+    inset-inline-start: -40px;
+  }
+
+  .auth-v1-bottom-shape {
+    inset-block-end: -55px;
+    inset-inline-end: -55px;
+  }
+}
+
+@media (min-width: 960px) {
+  .skin--bordered {
+    .auth-card-v2 {
+      border-inline-start: 1px solid rgba(var(--v-border-color), var(--v-border-opacity)) !important;
+    }
+  }
+}

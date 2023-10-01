@@ -1,0 +1,1014 @@
+@use "sass:list";
+@use "sass:map";
+@use "@core/scss/base/mixins";
+@use "@layouts/styles/mixins" as layoutsMixins;
+@use "@configured-variables" as variables;
+@use "@styles/variables/vuetify";
+
+// 自动补全
+.v-input--density-compact .v-field--variant-plain,
+.v-input--density-compact .v-field--variant-underlined {
+  --v-input-control-height: 40px !important;
+}
+
+// Body
+// 设置默认 body 字体尺寸
+body {
+  font-size: 15px !important;
+}
+
+// 头像
+.v-avatar {
+  font-weight: 500;
+}
+
+// 提示
+// 自定义图标样式
+$alert-prepend-icon-font-size: 1.125rem !important;
+
+.v-alert {
+  font-weight: 500;
+
+  &:not(.v-alert--prominent) .v-alert__prepend {
+    .v-icon {
+      block-size: 1.625rem !important;
+      font-size: 1.625rem !important;
+      inline-size: 1.625rem !important;
+    }
+  }
+
+  .v-alert-title {
+    margin-block-end: 0.55rem;
+  }
+
+  .v-alert__close {
+    .v-btn--icon {
+      --v-btn-height: 4px;
+
+      font-size: 0.5rem;
+      margin-block-end: 0.2rem;
+
+      .v-btn__overlay,
+      .v-ripple__container {
+        opacity: 0;
+      }
+    }
+  }
+
+  &:not(.v-alert--prominent) {
+    .v-alert__prepend {
+      .v-icon {
+        padding: 0.275rem;
+        border-radius: 0.375rem;
+        background-color: rgb(var(--v-theme-surface));
+      }
+    }
+
+    &.v-alert--variant-flat,
+    &.v-alert--variant-elevated {
+      .v-alert__prepend {
+        .v-icon {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.v-alert.v-alert--density-compact {
+  border-radius: 0.25rem;
+}
+
+.v-alert.v-alert--density-default {
+  border-radius: 0.5rem;
+}
+
+@each $color-name in variables.$theme-colors-name {
+  .v-alert {
+    &:not(.v-alert--prominent) {
+      &.bg-#{$color-name},
+      &.text-#{$color-name} {
+        .v-alert__prepend .v-icon {
+          color: rgb(var(--v-theme-#{$color-name})) !important;
+        }
+      }
+    }
+
+    &.v-alert--variant-outlined,
+    &.v-alert--variant-text,
+    &.v-alert--variant-plain {
+      &:not(.v-alert--prominent) {
+        &.text-#{$color-name},
+        &.bg-#{$color-name} {
+          .v-alert__prepend .v-icon {
+            background-color: rgb(var(--v-theme-#{$color-name}));
+            color: rgb(var(--v-theme-on-#{$color-name})) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 按钮
+// 在某些映射中使用透明度值键值对作为变量
+$btn-active-overlay-opacity: (
+  0.08: (outlined, flat, text, plain),
+  0.24: (tonal),
+);
+$btn-hover-overlay-opacity: (
+  0.1: (elevated),
+  0.08: (outlined, flat, text, plain),
+  0.24: (tonal),
+);
+
+.v-btn {
+  transform: scale(1.001);
+
+  // 对于一些凸起样式的元素比如按钮，当鼠标悬停时，按钮上会有一个较暗的叠加效果
+  // 为了避免按钮文本变暗，模板将该样式应用于 v-btn
+  .v-btn__content {
+    z-index: 0;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  // 将默认按钮的图标大小设置为 18px
+  .v-icon {
+    --v-icon-size-multiplier: 0.799407846;
+  }
+
+  // 鼠标悬停时添加过渡效果
+  &:not(.v-btn--loading) .v-btn__overlay {
+    transition: opacity 0.15s ease-in-out;
+    will-change: opacity;
+  }
+
+  // CSS 遍历 $btn-active-overlay-opacity 映射，为每个变量添加活动样式
+  // 并按照不同的透明度值进行分组
+  @each $opacity, $variants in $btn-active-overlay-opacity {
+    $selectors: ();
+
+    // 遍历变量 $variants 中的每个变体，并将每个变体生成的选择器追加到选择器列表 $selectors 中
+    @each $variant in $variants {
+      $selectors: list.append($selectors, "&.v-btn--variant-#{$variant}:active > .v-btn__overlay,");
+    }
+
+    #{$selectors} {
+      opacity: $opacity;
+    }
+  }
+
+  // CSS 遍历 $btn-hover-overlay-opacity 映射，为每个变量添加悬停样式
+  // 并按照不同的透明度值进行分组
+  @each $opacity, $variants in $btn-hover-overlay-opacity {
+    $selectors: ();
+
+    // 遍历变量 $variants 中的每个变体，并将每个变体生成的选择器追加到选择器列表 $selectors 中
+    @each $variant in $variants {
+      $selectors: list.append($selectors, "&.v-btn--variant-#{$variant}:hover > .v-btn__overlay,");
+    }
+
+    #{$selectors} {
+      opacity: $opacity;
+    }
+  }
+
+  // 默认按钮 elevated（凸起）
+  &--variant-elevated,
+  &--variant-flat {
+    // 鼠标悬停时的深色背景
+    &:not(.v-btn--loading, .v-btn--disabled) .v-btn__overlay {
+      background-color: black;
+
+      // 按钮加载完成时悬停背景色会概率出现闪烁，从而禁用过渡
+      transition: none;
+    }
+  }
+
+  // 更新具有变量颜色按钮的背景色
+  &.v-btn--variant-tonal .v-btn__underlay {
+    opacity: 0.16;
+  }
+
+  // 按钮圆角边框半径
+  &:not(.v-btn--icon).v-btn--size-x-small {
+    border-radius: 2px;
+  }
+
+  &:not(.v-btn--icon).v-btn--size-small {
+    border-radius: 4px;
+  }
+
+  &:not(.v-btn--icon).v-btn--size-large {
+    border-radius: 8px;
+  }
+
+  &:not(.v-btn--icon).v-btn--size-x-large {
+    border-radius: 10px;
+  }
+}
+
+// 徽章
+.v-badge {
+  .v-badge__badge .v-icon {
+    font-size: 0.9375rem;
+  }
+}
+
+// Checkbox 复选框
+.v-checkbox {
+  .v-label {
+    // 实现标签垂直对齐
+    line-height: 21px;
+  }
+
+  .v-input__details {
+    // 强制移除标签下方的冗余空间
+    min-block-size: unset !important;
+    padding-block-start: 0 !important;
+  }
+}
+
+// 短标签
+.v-chip {
+  .v-chip__close {
+    font-size: 0.8125rem;
+  }
+
+  .v-icon--start {
+    margin-inline-start: 0 !important;
+  }
+}
+
+// 复选框尺寸和阴影
+.v-checkbox-btn {
+  &.v-selection-control--dirty {
+    .v-selection-control__input {
+      .v-icon.iconify--custom {
+        // box-shadow 会在SVG元素上创建白色背景，因此这里选择使用 filter: drop-shadow()
+        filter: drop-shadow(map.get(vuetify.$shadow-key-umbra, 2));
+      }
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-selection-control__input {
+    /* stylelint-disable-next-line no-descending-specificity */
+    .v-icon.iconify--custom {
+      block-size: 1.125rem !important;
+      font-size: 1.125rem !important;
+      inline-size: 1.125rem !important;
+    }
+  }
+}
+
+// 对话框
+.v-dialog {
+  // 对话框自定义关闭按钮
+  .v-dialog-close-btn {
+    border-radius: 0.375rem;
+    background-color: rgb(var(--v-theme-surface)) !important;
+    block-size: 2rem;
+    inline-size: 2rem;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    transform: translate(0.5rem, -0.5rem);
+
+    @include layoutsMixins.rtl {
+      transform: translate(-0.5rem, -0.5rem);
+    }
+
+    &:hover {
+      transform: translate(0.3125rem, -0.3125rem);
+
+      @include layoutsMixins.rtl {
+        transform: translate(-0.3125rem, -0.3125rem);
+      }
+    }
+  }
+}
+
+// 扩展面板
+.v-application.v-layout .v-application__wrap .v-expansion-panels {
+  // 扩展面板自定义样式
+  &.expansion-panels-width-border {
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    border-radius: 0.375rem;
+  }
+
+  .v-expansion-panel {
+    margin-block-start: 0 !important;
+
+    // 扩展面板箭头尺寸
+    .v-expansion-panel-title {
+      color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+      font-weight: 500;
+
+      .v-expansion-panel-title__icon {
+        transition: transform 0.2s ease-in-out;
+
+        .v-icon {
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    .v-expansion-panel-title,
+    .v-expansion-panel-title--active,
+    .v-expansion-panel-title:hover,
+    .v-expansion-panel-title:focus,
+    .v-expansion-panel-title:focus-visible,
+    .v-expansion-panel-title--active:focus,
+    .v-expansion-panel-title--active:hover {
+      .v-expansion-panel-title__overlay {
+        opacity: 0 !important;
+      }
+    }
+
+    // 在面板打开时设置高度（立体阴影）
+    &:not(.v-expansion-panels--variant-accordion) {
+      &.v-expansion-panel--active {
+        .v-expansion-panel__shadow {
+          @include mixins.elevation(7);
+        }
+      }
+    }
+  }
+
+  &:not(.no-icon-rotate) {
+    .v-expansion-panel {
+      .v-expansion-panel-title__icon {
+        .v-icon {
+          @include layoutsMixins.rtl {
+            transform: scaleX(-1);
+          }
+        }
+      }
+
+      &.v-expansion-panel--active {
+        .v-expansion-panel-title__icon {
+          transform: rotate(90deg);
+
+          @include layoutsMixins.rtl {
+            transform: rotate(-90deg);
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.expansion-panels-width-border) {
+    .v-expansion-panel {
+      &:not(:last-child) {
+        margin-block-end: 0.5rem;
+      }
+
+      &:not(:first-child)::after {
+        content: none;
+      }
+
+      // 重写某些特定默认样式
+      /* stylelint-disable-next-line no-descending-specificity */
+      &:first-child:not(:last-child),
+      &:not(:first-child, :last-child),
+      &:not(:first-child) {
+        border-radius: 0.375rem !important;
+      }
+    }
+  }
+}
+
+// 字段
+.v-field__input {
+  opacity: 1 !important;
+}
+
+// 标签
+// 增加垂直对齐文本的行高
+.v-field {
+  line-height: 23px;
+}
+
+// 列表
+.v-list-item {
+  --v-hover-opacity: 0.08 !important;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-ripple__container {
+    display: none;
+  }
+
+  .v-checkbox-btn.v-selection-control--density-compact {
+    margin-inline-end: 0.5rem;
+  }
+
+  .v-list-item__overlay {
+    transition: none;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &.v-list-item--density-comfortable .v-icon {
+    font-size: 1.25rem;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &.v-list-item--density-compact .v-icon {
+    font-size: 1.125rem;
+  }
+
+  // 使用一下设置避免因为激活的列表项基于 currentColor 的不透明度会显示白色，从而导致全局主题外观变为浅色
+  &.v-list-item--active > .v-list-item__overlay {
+    opacity: 0 !important;
+  }
+
+  &.v-list-item--active:not(.v-list-group__header) {
+    background-color: rgb(var(--v-theme-primary));
+    color: rgb(var(--v-theme-on-primary));
+
+    .v-list-item-subtitle {
+      color: rgb(var(--v-theme-on-primary));
+    }
+  }
+
+  &[tabindex="0"]:not(.v-list-item--active) {
+    &:hover,
+    &:focus-visible {
+      color: rgb(var(--v-theme-primary));
+
+      .v-list-item-subtitle {
+        color: rgb(var(--v-theme-primary));
+      }
+    }
+  }
+
+  &.v-list-item--active.v-list-group__header {
+    color: rgb(var(--v-theme-primary));
+  }
+
+  &.v-list-item--active {
+    .v-list-item__prepend {
+      .v-checkbox,
+      .v-checkbox-btn {
+        .v-selection-control__input > .v-icon {
+          rect {
+            fill: white;
+
+            + path {
+              stroke: rgb(var(--v-theme-primary));
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 菜单
+// 菜单自定义样式
+.v-menu.v-overlay {
+  .v-overlay__content {
+    .v-list {
+      .v-list-item {
+        border-radius: 0.375rem;
+        margin-block: 0.25rem;
+        margin-inline: 0.5rem;
+        min-block-size: 2.375rem;
+
+        &:first-child {
+          margin-block-start: 0;
+        }
+
+        &:last-child {
+          margin-block-end: 0;
+        }
+      }
+
+      .v-list-item--density-default:not(.v-list-item--nav).v-list-item--one-line {
+        padding-block: 0.5rem;
+      }
+    }
+  }
+}
+
+// 分页
+.v-pagination {
+  .v-pagination__list .v-pagination__item--is-active {
+    .v-btn {
+      background-color: rgb(var(--v-theme-primary));
+
+      .v-btn__underlay {
+        opacity: 1 !important;
+      }
+
+      .v-btn__content {
+        color: rgb(var(--v-theme-on-primary));
+      }
+    }
+  }
+
+  // 禁用按钮的缩放动画
+  .v-pagination__item {
+    .v-btn {
+      transform: scale(1) !important;
+
+      // 禁用分页过渡效果
+      transition-duration: 0s;
+
+      &:active {
+        transform: scale(1);
+      }
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-pagination__next,
+  .v-pagination__prev {
+    /* stylelint-disable-next-line no-descending-specificity */
+    .v-btn--icon .v-icon {
+      --v-icon-size-multiplier: 0.889;
+    }
+  }
+}
+
+// 单选按钮
+.v-radio,
+.v-radio-btn {
+  .v-selection-control__input {
+    .iconify--custom {
+      border-radius: 5rem;
+      block-size: 1.125rem !important;
+      font-size: 1.125rem !important;
+      inline-size: 1.125rem !important;
+    }
+  }
+
+  &.v-selection-control--dirty {
+    .v-selection-control__input {
+      .iconify--custom {
+        @include mixins.elevation(2);
+      }
+    }
+  }
+
+  .v-label {
+    line-height: 22px;
+  }
+}
+
+// 单选按钮 & 复选框
+.v-radio,
+.v-checkbox-btn {
+  &:not(.v-selection-control--dirty) {
+    .v-selection-control__input > svg {
+      color: rgba(var(--v-theme-on-surface), var(--v-disabled-opacity));
+    }
+  }
+}
+
+// 评分
+.v-rating {
+  .v-rating__wrapper {
+    .v-btn .v-icon {
+      --v-icon-size-multiplier: 1;
+    }
+
+    .v-btn--density-default {
+      --v-btn-height: 26px;
+    }
+
+    .v-btn--density-compact {
+      --v-btn-height: 30px;
+    }
+
+    .v-btn--density-comfortable {
+      --v-btn-height: 32px;
+    }
+  }
+}
+
+// 开关
+.v-switch.v-switch--inset {
+  .v-switch__track,
+  .v-selection-control__wrapper {
+    block-size: 1.125rem;
+    inline-size: 1.875rem;
+  }
+
+  .v-ripple__container {
+    opacity: 0;
+  }
+
+  &:not(.v-input--disabled) .v-switch__track {
+    border: 1px solid rgba(var(--v-border-color), var(--v-switch-opacity));
+    background-color: rgb(var(--v-theme-surface));
+    opacity: 1;
+  }
+
+  .v-selection-control__input {
+    transform: translateX(-5px);
+
+    --v-selection-control-size: 1.125rem;
+
+    .v-switch__thumb {
+      background: rgba(var(--v-theme-on-surface), var(--v-switch-opacity));
+      block-size: 0.75rem;
+      inline-size: 0.75rem;
+    }
+  }
+
+  .v-selection-control--dirty {
+    .v-switch__track {
+      border-color: rgba(var(--v-border-color), var(--v-switch-opacity));
+    }
+
+    @each $color-name in variables.$theme-colors-name {
+      .text-#{$color-name} {
+        .v-switch__track {
+          border-color: rgb(var(--v-theme-#{$color-name}));
+          background-color: rgb(var(--v-theme-#{$color-name}));
+        }
+      }
+    }
+
+    .v-selection-control__input {
+      transform: translateX(5px);
+
+      .v-switch__thumb {
+        background-color: #fff;
+      }
+    }
+  }
+
+  // 禁用
+  &.v-input--disabled {
+    &:not(.v-input--dirty) {
+      .v-selection-control__input .v-switch__thumb {
+        background: rgba(var(--v-theme-on-surface), var(--v-switch-disabled-thumb-opacity));
+      }
+
+      .v-switch__track {
+        background-color: rgba(var(--v-theme-on-surface), var(--v-switch-disabled-track-opacity));
+      }
+    }
+
+    &.v-input--dirty {
+      .v-selection-control--disabled {
+        opacity: var(--v-switch-checked-disabled-opacity);
+      }
+    }
+  }
+}
+
+.v-switch.v-input,
+.v-checkbox-btn,
+.v-radio-btn,
+.v-radio {
+  --v-input-control-height: auto;
+
+  flex: unset;
+}
+
+// 滑块
+.v-slider-thumb {
+  border: 3px solid rgb(var(--v-theme-surface));
+  border-radius: 5rem;
+
+  @include mixins.elevation(3);
+}
+
+.v-slider-thumb__label {
+  background: vuetify.$tooltip-background-color !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
+  font-weight: 500;
+}
+
+.v-slider.v-input--horizontal .v-slider-thumb__label::before {
+  border-block-start-color: vuetify.$tooltip-background-color !important;
+}
+
+.v-slider.v-input--vertical .v-slider-thumb__label::before {
+  border-inline-end-color: vuetify.$tooltip-background-color !important;
+}
+
+// 滑块跟踪不透明度
+.v-slider-track__background--opacity {
+  opacity: 1 !important;
+}
+
+// 表格
+.v-table {
+  --v-table-row-height: 56px;
+  --v-table-header-height: 48px !important;
+
+  color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity)) !important;
+
+  th {
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity)) !important;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
+
+    .v-data-table-header__content {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+// 选项卡
+// 使 v-tab 支持药丸样式
+.v-tabs {
+  &.v-tabs--vertical {
+    --v-tabs-height: 38px !important;
+
+    &:not(.v-tabs-pill) {
+      block-size: 100%;
+      border-inline-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    }
+  }
+
+  &.v-tabs--horizontal:not(.v-tabs-pill) {
+    border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+
+    .v-tab__slider {
+      block-size: 3px;
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-btn {
+    font-weight: 400;
+    transform: none !important;
+
+    &.v-btn--stacked {
+      /* stylelint-disable-next-line no-descending-specificity */
+      .v-icon {
+        --v-icon-size-multiplier: 1.1428571429;
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .v-btn__overlay,
+    .v-ripple__container {
+      opacity: 0 !important;
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .v-tab__slider {
+      inset-inline-end: 0;
+      inset-inline-start: unset;
+    }
+  }
+}
+
+// 药丸标签
+.v-tabs.v-tabs-pill {
+  .v-slide-group-item--active.v-tab--selected {
+    @include mixins.elevation(2);
+  }
+
+  &.v-slide-group,
+  .v-slide-group__container {
+    box-sizing: content-box;
+    padding: 1rem;
+    margin: -1rem;
+  }
+
+  .v-tab.v-btn {
+    &:hover {
+      color: rgba(var(--v-theme-primary));
+    }
+  }
+}
+
+// 时间线
+.v-timeline {
+  .v-timeline-divider__dot {
+    background: none !important;
+
+    .v-timeline-divider__inner-dot {
+      box-shadow: 0 0 0 0.1875rem rgb(var(--v-theme-on-surface-variant));
+
+      @each $color-name in variables.$theme-colors-name {
+
+        &.bg-#{$color-name} {
+          box-shadow: 0 0 0 0.1875rem rgba(var(--v-theme-#{$color-name}), 0.12);
+        }
+      }
+    }
+  }
+
+  // 时间线图标
+  &.v-timeline-icon-only {
+    .v-timeline-divider__dot {
+      .v-timeline-divider__inner-dot {
+        background: none;
+        box-shadow: none;
+
+        /* stylelint-disable-next-line no-descending-specificity */
+        .v-icon {
+          background: rgb(var(--v-theme-background));
+        }
+      }
+    }
+  }
+
+  // 重写卡片中时间线圆点的默认背景颜色
+  .v-card:not(.v-card--variant-text, .v-card--variant-plain, .v-card--variant-outlined) & {
+    &.v-timeline-icon-only {
+      .v-timeline-divider__dot {
+        .v-timeline-divider__inner-dot {
+          /* stylelint-disable-next-line no-descending-specificity */
+          .v-icon {
+            background: rgb(var(--v-theme-surface));
+          }
+        }
+      }
+    }
+  }
+
+  .v-card.v-card--variant-tonal & {
+    &.v-timeline-icon-only {
+      .v-timeline-divider__dot {
+        .v-timeline-divider__inner-dot {
+          /* stylelint-disable-next-line no-descending-specificity */
+          .v-icon {
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 文本框、选择框、自动补全、组合框、多行文本框
+.v-application {
+  .app-text-field,
+  .app-select,
+  .app-autocomplete,
+  .app-combobox,
+  .app-textarea,
+  .app-picker-field {
+    .v-text-field .v-input__details {
+      padding-inline-start: 0;
+    }
+
+    .v-field--variant-outlined.v-field--focused .v-field__outline {
+      --v-field-border-width: 1px !important;
+    }
+
+    // 重写 Vuetify 中 density: 'comfortable' （舒适密度）的字体大小
+    .v-input--density-comfortable {
+      .v-field {
+        input,
+        .v-select__selection-text {
+          font-size: 1.125rem;
+        }
+      }
+    }
+
+    // density: 'default'（默认密度）
+    .v-input--density-default {
+      .v-field {
+        input,
+        .v-select__selection-text {
+          font-size: 1.375rem;
+        }
+      }
+    }
+
+    // 占位符过渡效果
+    .v-field {
+      input,
+      .v-field__input {
+        &::placeholder {
+          transition: transform 0.2s ease-out;
+        }
+      }
+    }
+
+    .v-field--focused {
+      // @include elevation.elevation(1);
+      box-shadow: 0 2px 4px rgba(var(--v-shadow-key-umbra-color), 0.12);
+
+      // 占位符过渡效果
+      &.v-field {
+        input,
+        .v-field__input {
+          &::placeholder {
+            transform: translateX(4px) !important;
+
+            [dir="rtl"] & {
+              transform: translateX(-4px) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @mixin style-selectable-component($component-name) {
+    .app-#{$component-name} {
+      .v-#{$component-name}__selection {
+        line-height: 24px;
+        margin-block: 0 !important;
+      }
+
+      // 垂直对齐的占位符和文本
+      .v-#{$component-name} .v-field .v-field__input > input {
+        align-self: center;
+      }
+
+      // 短标签
+      .v-#{$component-name}.v-#{$component-name}--chips.v-input--dirty {
+        .v-#{$component-name}__selection {
+          margin: 0;
+        }
+
+        .v-field__input {
+          gap: 3px;
+        }
+
+        &.v-input--density-compact {
+          .v-field__input {
+            padding-inline-start: 0.5rem;
+          }
+        }
+
+        &.v-input--density-comfortable {
+          .v-field__input {
+            padding-inline-start: 0.75rem;
+          }
+        }
+
+        &.v-input--density-default {
+          .v-field__input {
+            padding-inline-start: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @include style-selectable-component("autocomplete");
+  @include style-selectable-component("select");
+  @include style-selectable-component("combobox");
+
+  .v-input--density-compact {
+    .v-field__clearable,
+    .v-field__append-inner {
+      svg {
+        block-size: 0.8em;
+        inline-size: 0.8em;
+        margin-block-start: 0.15em;
+
+        // transform: scale(0.75);
+        // transform-origin: center;
+      }
+    }
+  }
+
+  // 自动补全
+  @at-root {
+    .app-autocomplete__content {
+      .v-list-item--active {
+        .v-autocomplete__mask {
+          background: #5c52c0;
+        }
+      }
+
+      .v-theme--dark {
+        .v-list-item:not(.v-list-item--active) {
+          .v-autocomplete__mask {
+            background: #3b405c;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 在选择框、菜单等组件中使用列表时重写其样式
+.v-menu {
+  .v-list-item {
+    // 强制列表项的 padding
+    padding-block: 8px !important;
+    padding-inline: 16px !important;
+  }
+}
+
+.app-inner-list {
+  // 隐藏复选框
+  .v-selection-control {
+    display: none;
+  }
+}
+
+// 隐藏调整大小的控制器（resizer）
+::-webkit-resizer {
+  background: transparent;
+}

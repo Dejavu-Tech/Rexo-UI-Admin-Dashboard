@@ -1,0 +1,183 @@
+@use "vuetify/lib/styles/tools/functions" as *;
+
+// 核心变量
+// 实际开发中根据具体情况选择保留模板变量样式或自定义占位符或变量
+
+@forward "@layouts/styles/variables" with (
+  // 调整 z-index，使垂直导航栏和遮罩层位于 v-main 的上方
+  $layout-vertical-nav-z-index: 1004,
+  $layout-overlay-z-index: 1003,
+);
+@use "@layouts/styles/variables" as *;
+
+// 默认布局
+$navbar-high-emphasis-text: true !default;
+
+// @forward "@layouts/styles/variables" with (
+//   $layout-vertical-nav-width: 350px !default,
+// );
+
+$theme-colors-name: (
+  "primary",
+  "secondary",
+  "error",
+  "info",
+  "success",
+  "warning"
+) !default;
+
+// 垂直导航栏默认布局
+$default-layout-with-vertical-nav-navbar-footer-roundness: 10px !default;
+
+// 垂直导航栏
+$vertical-nav-background-color-rgb: var(--v-theme-background) !default;
+$vertical-nav-background-color: rgb(#{$vertical-nav-background-color-rgb}) !default;
+
+// 导航项和导航标签的左右边距
+$vertical-nav-horizontal-margin-start: 0.2rem !default;
+$vertical-nav-horizontal-margin-end: 0.5rem !default;
+$vertical-nav-horizontal-spacing: 1rem !default;
+$vertical-nav-horizontal-padding: 0.75rem !default;
+$vertical-nav-horizontal-padding-end: 0.5rem !default;
+$vertical-nav-horizontal-padding-start: 1rem !default;
+
+// 垂直导航栏标题高度，建议其与导航栏高度对齐
+$vertical-nav-header-height: $layout-vertical-nav-navbar-height !default;
+$vertical-nav-navbar-elevation: 3 !default;
+$vertical-nav-navbar-style: "elevated" !default;
+$vertical-nav-floating-navbar-top: 1rem !default;
+
+// 垂直导航栏标题内边距
+$vertical-nav-header-padding: 1rem $vertical-nav-horizontal-padding !default;
+$vertical-nav-header-inline-spacing: $vertical-nav-horizontal-spacing !default;
+
+// 当垂直导航处于迷你状态（折叠但未悬停时）偏移 Logo
+$vertical-nav-header-logo-translate-x-when-vertical-nav-mini: -4px !default;
+
+// 徽章和标题之间的间隔
+$vertical-nav-header-logo-title-spacing: 0.9rem !default;
+
+// 当不为第一个子元素时节标题的上边距
+$vertical-nav-section-title-mt: 1.5rem !default;
+
+// 节标题下边距
+$vertical-nav-section-title-mb: 0.5rem !default;
+
+// 垂直导航图标
+$vertical-nav-items-icon-size: 1.5rem !default;
+$vertical-nav-items-nested-icon-size: 0.9rem !default;
+$vertical-nav-items-icon-margin-inline-end: 0.5rem !default;
+
+// 导航组箭头的过渡时间
+$vertical-nav-nav-group-arrow-transition-duration: 0.15s !default;
+
+// 导航组箭头的过渡效果
+$vertical-nav-nav-group-arrow-transition-timing-function: ease-in-out !default;
+
+// 水平导航栏
+
+// 模板始终使用缩写属性（如 padding 等）在四个方向上应用相同的值
+// 用于页面对 .popper-content 元素进行定位和布局
+$horizontal-nav-padding: 0.6875rem !default;
+
+// 水平导航栏顶层项之间的间距
+$horizontal-nav-top-level-items-gap: 4px !default;
+
+// 水平导航栏图标
+$horizontal-nav-items-icon-size: 1.5rem !default;
+$horizontal-nav-third-level-icon-size: 0.9rem !default;
+$horizontal-nav-items-icon-margin-inline-end: 0.625rem !default;
+
+// 此变量可自定义设置弹出内容（popper content）的最大高度
+// 120px 是导航条和水平导航栏组合的高度
+$horizontal-nav-popper-content-max-height: calc((var(--vh, 1vh) * 100) - 120px - 4rem) !default;
+
+// 此变量用于同步水平导航栏弹出内容的 margin-top 和桥接器（见 src/@core/scss/base/_horizontal-nav.scss 112 行）的高度
+$horizontal-nav-popper-content-top: calc($horizontal-nav-padding + 0.375rem) !default;
+
+// 插件
+$plugin-ps-thumb-y-dark: rgba(var(--v-theme-surface-variant), 0.35) !default;
+
+// Vuetify 自定义变量
+// 用于 src/@core/scss/base/libs/vuetify/_overrides.scss
+$vuetify-reduce-default-compact-button-icon-size: true !default;
+
+// 实用类自定义变量
+$font-sizes: () !default;
+$font-sizes: map-deep-merge(
+  (
+    "xs": 0.75rem,
+    "sm": 0.875rem,
+    "base": 1rem,
+    "lg": 1.125rem,
+    "xl": 1.25rem,
+    "2xl": 1.5rem,
+    "3xl": 1.875rem,
+    "4xl": 2.25rem,
+    "5xl": 3rem,
+    "6xl": 3.75rem,
+    "7xl": 4.5rem,
+    "8xl": 6rem,
+    "9xl": 8rem
+  ),
+  $font-sizes
+);
+
+// 行高
+$font-line-height: () !default;
+$font-line-height: map-deep-merge(
+  (
+    "xs": 1rem,
+    "sm": 1.25rem,
+    "base": 1.5rem,
+    "lg": 1.75rem,
+    "xl": 1.75rem,
+    "2xl": 2rem,
+    "3xl": 2.25rem,
+    "4xl": 2.5rem,
+    "5xl": 1,
+    "6xl": 1,
+    "7xl": 1,
+    "8xl": 1,
+    "9xl": 1
+  ),
+  $font-line-height
+);
+
+// 网格布局中设置元素之间的间隔类
+$gap: () !default;
+$gap: map-deep-merge(
+  (
+    "0": 0,
+    "1": 0.25rem,
+    "2": 0.5rem,
+    "3": 0.75rem,
+    "4": 1rem,
+    "5": 1.25rem,
+    "6":1.5rem,
+    "7": 1.75rem,
+    "8": 2rem,
+    "9": 2.25rem,
+    "10": 2.5rem,
+    "11": 2.75rem,
+    "12": 3rem,
+    "14": 3.5rem,
+    "16": 4rem,
+    "20": 5rem,
+    "24": 6rem,
+    "28": 7rem,
+    "32": 8rem,
+    "36": 9rem,
+    "40": 10rem,
+    "44": 11rem,
+    "48": 12rem,
+    "52": 13rem,
+    "56": 14rem,
+    "60": 15rem,
+    "64": 16rem,
+    "72": 18rem,
+    "80": 20rem,
+    "96": 24rem
+  ),
+  $gap
+);

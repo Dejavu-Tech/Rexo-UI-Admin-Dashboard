@@ -1,0 +1,88 @@
+@use "sass:map";
+@use "sass:list";
+@use "@configured-variables" as variables;
+
+// 深度获取 / 设置 Sass 映射，感谢：https://css-tricks.com/snippets/sass/deep-getset-maps/
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map.get($map, $key);
+  }
+
+  @return $map;
+}
+
+@function map-deep-set($map, $keys, $value) {
+  $maps: ($map,);
+  $result: null;
+
+  // 如果最后一个键已经是一个映射，则警告用户将用 $value 重写
+  @if type-of(nth($keys, -1)) == "map" {
+    @warn "The last key you specified is a map; it will be overrided with `#{$value}`.";
+  }
+
+  // 如果 $keys 是一个单键，只需合并并返回
+  @if length($keys) == 1 {
+    @return map-merge($map, ($keys: $value));
+  }
+
+  // 从 $keys 的第一个键到倒数第二个键遍历
+  // 将与此键相关联的映射存储到 $maps 列表中
+  // 如果键不存在，则抛出错误
+  @for $i from 1 through length($keys) - 1 {
+    $current-key: list.nth($keys, $i);
+    $current-map: list.nth($maps, -1);
+    $current-get: map.get($current-map, $current-key);
+
+    @if not $current-get {
+      @error "Key `#{$key}` doesn't exist at current level in map.";
+    }
+
+    $maps: list.append($maps, $current-get);
+  }
+
+  // 从最后一个映射到第一个映射遍历
+  // 与前一个映射进行合并
+  @for $i from length($maps) through 1 {
+    $current-map: list.nth($maps, $i);
+    $current-key: list.nth($keys, $i);
+    $current-val: if($i == list.length($maps), $value, $result);
+    $result: map.map-merge($current-map, ($current-key: $current-val));
+  }
+
+  // 返回结果
+  @return $result;
+}
+
+// 字体大小实用类调整
+@each $name, $size in variables.$font-sizes {
+  .text-#{$name} {
+    font-size: $size;
+    line-height: map.get(variables.$font-line-height, $name);
+  }
+}
+
+// 元素内部截断文本类
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 网格布局中设置元素之间的间隔类
+@each $name, $size in variables.$gap {
+  .gap-#{$name} {
+    gap: $size;
+  }
+
+  .gap-x-#{$name} {
+    column-gap: $size;
+  }
+
+  .gap-y-#{$name} {
+    row-gap: $size;
+  }
+}
+
+.list-none {
+  list-style-type: none;
+}

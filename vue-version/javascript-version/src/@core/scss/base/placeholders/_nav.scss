@@ -1,0 +1,30 @@
+@use "@core/scss/base/mixins";
+
+// 垂直 / 水平导航栏通用样式
+%nav {
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+
+  .nav-item-title {
+    letter-spacing: 0.15px;
+  }
+
+  .nav-section-title {
+    letter-spacing: 0.4px;
+  }
+}
+
+// 垂直 / 水平导航栏活动状态导航链接样式
+// 对于水平导航栏，仅应用于顶层导航项
+// 对于垂直导航栏，仅应用于导航链接，而非导航组
+%nav-link-active {
+  background-color: rgb(var(--v-global-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+
+  @include mixins.elevation(3);
+}
+
+%nav-link {
+  a {
+    color: inherit;
+  }
+}

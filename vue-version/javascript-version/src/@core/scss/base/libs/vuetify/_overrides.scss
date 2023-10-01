@@ -1,0 +1,278 @@
+@use "@core/scss/base/utils";
+@use "@configured-variables" as variables;
+
+// 应用
+// 移动设备上使用 vh 获得准确视口高度
+.v-application__wrap {
+  /* stylelint-disable-next-line liberty/use-logical-spec */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+// 排版字体重写
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-h1,
+.text-h2,
+.text-h3,
+.text-h4,
+.text-h5,
+.text-h6,
+.text-button,
+.text-overline,
+.v-card-title {
+  color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+}
+
+.v-application,
+.text-body-1,
+.text-body-2,
+.text-subtitle-1,
+.text-subtitle-2 {
+  color: rgba(var(--v-theme-on-background), var(--v-medium-emphasis-opacity));
+}
+
+// 网格
+// 删除网格内 v-input_details （验证错误消息）的下边距
+.v-row {
+  .v-col,
+  [class^="v-col-*"] {
+    .v-input__details {
+      margin-block-end: 0;
+    }
+  }
+}
+
+// 按钮
+// 更新禁用变量主题色不透明度
+.v-btn--disabled {
+  opacity: 0.65;
+}
+
+@if variables.$vuetify-reduce-default-compact-button-icon-size {
+  .v-btn--density-compact.v-btn--size-default {
+    .v-btn__content > svg {
+      block-size: 22px;
+      font-size: 22px;
+      inline-size: 22px;
+    }
+  }
+}
+
+// 卡片
+.v-card-subtitle {
+  color: rgba(var(--v-theme-on-background), var(--v-disabled-opacity));
+}
+
+// 移除 v-card-text 自身以及之后的 padding-top
+.v-card-text {
+  & + & {
+    padding-block-start: 0 !important;
+  }
+}
+
+// 复选框和单选按钮的水波纹效果
+// TODO Vuetify 复选框和开关组件当前版本的间距其默认设置与文本框高度相同，如果组合使用时视觉上样式不协调
+// 相关 Issue：https://github.com/vuetifyjs/vuetify/issues/15519
+// 等待 Vuetify 修复此问题手动其更新版本时请删除以下代码
+.v-checkbox.v-input,
+.v-switch.v-input {
+  --v-input-control-height: auto;
+  flex: unset;
+}
+
+.v-selection-control--density-comfortable {
+  &.v-checkbox-btn,
+  &.v-radio,
+  &.v-radio-btn {
+    .v-selection-control__wrapper {
+      margin-inline-start: -0.5625rem;
+    }
+  }
+}
+
+.v-selection-control--density-compact {
+  &.v-radio,
+  &.v-radio-btn,
+  &.v-checkbox-btn {
+    .v-selection-control__wrapper {
+      margin-inline-start: -0.3125rem;
+    }
+  }
+}
+
+.v-selection-control--density-default {
+  &.v-checkbox-btn,
+  &.v-radio,
+  &.v-radio-btn {
+    .v-selection-control__wrapper {
+      margin-inline-start: -0.6875rem;
+    }
+  }
+}
+
+.v-radio-group {
+  .v-selection-control-group {
+    .v-radio:not(:last-child) {
+      margin-inline-end: 0.9rem;
+    }
+  }
+}
+
+// 选项卡
+// 以下 CSS 禁用选项卡的过渡效果，并在 VWindow 上添加 overflow: unset，以允许阴影扩展
+// 适用于没有卡片作为父元素的选项卡
+.disable-tab-transition {
+  overflow: unset !important;
+
+  .v-window__container {
+    block-size: auto !important;
+  }
+
+  .v-window-item:not(.v-window-item--active) {
+    display: none !important;
+  }
+
+  .v-window__container .v-window-item {
+    transform: none !important;
+  }
+}
+
+// 列表
+.v-list {
+  // 设置图标透明度
+  .v-list-item__prepend > .v-icon,
+  .v-list-item__append > .v-icon {
+    opacity: 1;
+  }
+}
+
+// 卡片列表
+// 移除卡片内部列表的间距
+// 因列表项的内边距为 16px，列表容器还具有底部内边距，两者相加大于卡片标题的内边距 20px
+.card-list {
+  --v-card-list-gap: 20px;
+
+  &.v-list {
+    padding-block: 0;
+  }
+
+  .v-list-item {
+    min-block-size: unset;
+    min-block-size: auto !important;
+    padding-block: 0 !important;
+    padding-inline: 0 !important;
+
+    > .v-ripple__container {
+      opacity: 0;
+    }
+
+    &:not(:last-child) {
+      padding-block-end: var(--v-card-list-gap) !important;
+    }
+  }
+
+  .v-list-item:hover,
+  .v-list-item:focus,
+  .v-list-item:active,
+  .v-list-item.active {
+    > .v-list-item__overlay {
+      opacity: 0 !important;
+    }
+  }
+}
+
+// 分隔线
+.v-divider {
+  color: rgb(var(--v-border-color));
+}
+
+// 数据表格
+.v-data-table {
+  /* stylelint-disable-next-line no-descending-specificity */
+  .v-checkbox-btn .v-selection-control__wrapper {
+    margin-inline-start: 0 !important;
+  }
+
+  .v-selection-control {
+    display: flex !important;
+  }
+
+  .v-pagination {
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  }
+}
+
+.v-data-table-footer {
+  margin-block-start: 1rem;
+}
+
+// 表单字段（输入框、标签、提示等）
+.v-field:hover .v-field__outline {
+  --v-field-border-opacity: var(--v-medium-emphasis-opacity);
+}
+
+// 标签
+.v-label {
+  opacity: 1 !important;
+
+  &:not(.v-field-label--floating) {
+    color: rgba(var(--v-theme-on-background), var(--v-medium-emphasis-opacity));
+  }
+}
+
+// 覆盖（遮罩层）
+.v-overlay__scrim {
+  background: rgba(var(--v-overlay-scrim-background), var(--v-overlay-scrim-opacity)) !important;
+}
+
+// 消息提示
+.v-messages {
+  color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  opacity: 1;
+}
+
+// 提示关闭按钮
+.v-alert__close {
+  .v-btn--icon .v-icon {
+    --v-icon-size-multiplier: 1.5;
+  }
+}
+
+// 徽章图标对齐方式
+.v-badge__badge {
+  display: flex;
+  align-items: center;
+}
+
+// 移除按钮焦点状态时的外边框
+.v-btn:focus-visible::after {
+  opacity: 0 !important;
+}
+
+// v-select 组件中用于插槽的短标签（显示活动状态的选项）的外间距
+.v-input:not(.v-select--chips) .v-select__selection {
+  .v-chip {
+    margin-block: 2px var(--select-chips-margin-bottom);
+  }
+}
+
+// v-card 和 v-list 的副标题颜色
+.v-list-item-subtitle {
+  color: rgba(var(--v-theme-on-background), var(--v-medium-emphasis-opacity));
+}
+
+// 表单字段占位符
+.v-field__input {
+  @at-root {
+    & input::placeholder,
+    input#{&}::placeholder,
+    textarea#{&}::placeholder {
+      color: rgba(var(--v-theme-on-surface), var(--v-disabled-opacity)) !important;
+      opacity: 1 !important;
+    }
+  }
+}

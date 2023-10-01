@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "@core/scss/base";
+
+// 布局
+@use "vertical-nav";
+@use "horizontal-nav";
+@use "default-layout-w-vertical-nav";
+@use "default-layout-w-horizontal-nav";
+
+// 全局皮肤
+@use "skins";
+
+// 组件
+@use "components";
+
+// 公共样式定义
+@use "utilities";

@@ -1,0 +1,53 @@
+// placeholder 占位符
+@use "@configured-variables" as variables;
+
+%boxed-content {
+  @at-root #{&}-spacing {
+    // TODO: 应使用 grid gutter 变量
+    padding-inline-start: 1rem;
+    padding-inline-end: 1.5rem;
+  }
+
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: variables.$layout-boxed-content-width;
+}
+
+%layout-navbar-hidden {
+  display: none;
+}
+
+// ℹ️ 模板当前版本占位符仅用于大屏断点的垂直导航栏，未来版本中更新将用于水平导航栏和双导航栏模式
+%layout-navbar-sticky {
+  position: sticky;
+  inset-block-start: 0;
+
+  // will-change: transform;
+  // inline-size: 100%;
+}
+
+%style-scroll-bar {
+  /* 滚动条的宽度 */
+  &::-webkit-scrollbar {
+    background: rgb(var(--v-theme-surface));
+    block-size: 8px;
+    border-end-end-radius: 14px;
+    border-start-end-radius: 14px;
+    inline-size: 4px;
+  }
+
+  /* 滚动条轨道 */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* 滚动条滑块 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background: rgb(var(--v-theme-perfect-scrollbar-thumb));
+  }
+  /* 滚动条角落 */
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+}

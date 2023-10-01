@@ -1,0 +1,6 @@
+// ❗ Vuetify 核心变量必须为相对路径！
+@forward "../../@core/scss/template/libs/vuetify/variables";
+
+// ℹ️ 如需自定义 Vuetify 的外观和风格，请删除上面的导入并取消下面的注释以覆盖 Vuetify 核心变量
+// 并将 <variable-name> 替换为要覆盖的 Vuetify 核心变量名称，将 <variable-value> 替换为想要设置的自定义变量值
+// @forward "../../@core/scss/template/libs/vuetify/variables" with ($<variable-name>: <variable-value>);

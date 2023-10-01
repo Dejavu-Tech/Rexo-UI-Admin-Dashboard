@@ -1,0 +1,8 @@
+@use "@configured-variables" as variables;
+
+%default-layout-vertical-nav-floating-navbar-and-sticky-elevated-navbar-scrolled {
+  // 如果导航条的弹窗或下拉列表为打开并超过页面高度时挤压导航条内容并提供滚动条
+  @if variables.$layout-vertical-nav-navbar-is-contained {
+    padding-inline: 1.5rem;
+  }
+}

@@ -1,0 +1,45 @@
+@use "@core/scss/base/placeholders" as *;
+@use "@core/scss/template/placeholders" as *;
+@use "@core/scss/base/mixins";
+
+.layout-wrapper.layout-nav-type-horizontal {
+  .layout-navbar-and-nav-container {
+    @extend %default-layout-horizontal-nav-navbar-and-nav-container;
+  }
+
+  // 导航条
+  .layout-navbar {
+    @extend %default-layout-horizontal-nav-navbar;
+  }
+
+  // 导航条内容容器
+  .navbar-content-container {
+    display: flex;
+    align-items: center;
+    block-size: 100%;
+  }
+
+  .layout-horizontal-nav {
+    @extend %default-layout-horizontal-nav-nav;
+
+    .nav-items {
+      @extend %default-layout-horizontal-nav-nav-items-list;
+    }
+  }
+
+  // 页脚布局
+  .layout-footer {
+    @at-root {
+      .layout-footer-sticky#{&} {
+        background-color: rgb(var(--v-theme-surface));
+
+        @include mixins.elevation(3);
+      }
+    }
+  }
+
+  // TODO: 使用 Vuetify 网格 sass 变量
+  .layout-page-content {
+    padding-block: 1.5rem;
+  }
+}
