@@ -1,0 +1,5 @@
+@use "@core/scss/base/mixins";
+
+%default-layout-horizontal-nav-navbar-and-nav-container {
+  @include mixins.elevation(2);
+}

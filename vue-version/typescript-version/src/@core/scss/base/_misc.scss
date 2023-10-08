@@ -1,0 +1,20 @@
+// 在使用 perfect scrollbar 时，scrollable-content 为 VNavigationDrawer 创建固定标题和可滚动的内容
+.scrollable-content {
+  &.v-navigation-drawer {
+    .v-navigation-drawer__content {
+      display: flex;
+      overflow: hidden;
+      flex-direction: column;
+    }
+  }
+}
+
+// 代码示例样式
+code {
+  border-radius: 3px;
+  color: rgb(var(--v-code-color));
+  font-size: 90%;
+  font-weight: 400;
+  padding-block: 0.2em;
+  padding-inline: 0.4em;
+}

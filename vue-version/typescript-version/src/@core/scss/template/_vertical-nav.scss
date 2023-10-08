@@ -1,0 +1,41 @@
+@use "@configured-variables" as variables;
+@use "@core/scss/base/mixins";
+
+.layout-nav-type-vertical {
+  // 垂直导航布局
+  .layout-vertical-nav {
+    // @include mixins.elevation(2);
+
+    .nav-header {
+      .app-logo {
+        .app-title {
+          font-size: 22px;
+        }
+      }
+
+      .header-action {
+        margin-inline-end: -0.85rem;
+      }
+    }
+
+    // 导航组和导航链接
+    .nav-link,
+    .nav-group {
+      // 修复阴影裁剪
+      margin-block-end: -0.5rem;
+      padding-block-end: 0.5rem;
+    }
+
+    // 活动状态导航组
+    .nav-group.active {
+      > .nav-group-label {
+        color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+        font-weight: 500;
+      }
+    }
+
+    .nav-section-title .placeholder-icon {
+      margin-inline-start: 0.4rem;
+    }
+  }
+}

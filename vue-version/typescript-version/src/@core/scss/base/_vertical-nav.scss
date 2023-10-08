@@ -1,0 +1,244 @@
+@use "@core/scss/base/placeholders" as *;
+@use "@core/scss/template/placeholders" as *;
+@use "@layouts/styles/mixins" as layoutsMixins;
+@use "@configured-variables" as variables;
+@use "@core/scss/base/mixins" as mixins;
+@use "vuetify/lib/styles/tools/states" as vuetifyStates;
+
+.layout-nav-type-vertical {
+  // 垂直导航布局
+  .layout-vertical-nav {
+    $sl-layout-nav-type-vertical: &;
+
+    @extend %nav;
+
+    @at-root {
+      // 添加折叠态垂直导航栏的样式
+      .layout-vertical-nav-collapsed#{$sl-layout-nav-type-vertical}.hovered {
+        @include mixins.elevation(6);
+      }
+    }
+
+    background-color: variables.$vertical-nav-background-color;
+
+    // 导航标签
+    .nav-header {
+      overflow: hidden;
+      padding: variables.$vertical-nav-header-padding;
+      margin-inline: variables.$vertical-nav-header-inline-spacing;
+      min-block-size: variables.$vertical-nav-header-height;
+
+      .app-logo {
+        flex-shrink: 0;
+        transition: transform 0.25s ease-in-out;
+
+        @at-root {
+          // 迷你模式垂直导航栏（折叠态）中移动 Logo 使其与导航项图标居中对齐
+          .layout-vertical-nav-collapsed#{$sl-layout-nav-type-vertical}:not(.hovered) .nav-header .app-logo {
+            transform: translateX(variables.$vertical-nav-header-logo-translate-x-when-vertical-nav-mini);
+
+            @include layoutsMixins.rtl {
+              transform: translateX(-(variables.$vertical-nav-header-logo-translate-x-when-vertical-nav-mini));
+            }
+          }
+        }
+      }
+
+      .header-action {
+        @extend %nav-header-action;
+      }
+    }
+
+    // 导航项阴影
+    .vertical-nav-items-shadow {
+      position: absolute;
+      z-index: 1;
+      background:
+        linear-gradient(
+          rgb(#{variables.$vertical-nav-background-color-rgb}) 5%,
+          rgba(#{variables.$vertical-nav-background-color-rgb}, 75%) 45%,
+          rgba(#{variables.$vertical-nav-background-color-rgb}, 20%) 80%,
+          transparent
+        );
+      block-size: 55px;
+      inline-size: 100%;
+      inset-block-start: calc(#{variables.$vertical-nav-header-height} - 2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease-in-out;
+      will-change: opacity;
+
+      @include layoutsMixins.rtl {
+        transform: translateX(8px);
+      }
+    }
+
+    &.scrolled {
+      .vertical-nav-items-shadow {
+        opacity: 1;
+      }
+    }
+
+    .ps__rail-y {
+      // 设置滚动条 z-index: 1 使滚动条的滑块位于导航项阴影的上层
+      z-index: 1;
+    }
+
+    // 导航栏节标题样式
+    .nav-section-title {
+      @extend %vertical-nav-item;
+      @extend %vertical-nav-section-title;
+
+      margin-block-end: variables.$vertical-nav-section-title-mb;
+
+      &:not(:first-child) {
+        margin-block-start: variables.$vertical-nav-section-title-mt;
+      }
+
+      .placeholder-icon {
+        margin-inline: auto;
+      }
+    }
+
+    // 导航项徽章
+    .nav-item-badge {
+      @extend %vertical-nav-item-badge;
+    }
+
+    // 导航组和导航链接
+    .nav-link,
+    .nav-group {
+      overflow: hidden;
+
+      > :first-child {
+        @extend %vertical-nav-item;
+        @extend %vertical-nav-item-interactive;
+      }
+
+      .nav-item-icon {
+        @extend %vertical-nav-items-icon;
+      }
+
+      &.disabled {
+        opacity: var(--v-disabled-opacity);
+        pointer-events: none;
+      }
+    }
+
+    // 垂直导航栏链接
+    .nav-link {
+      @extend %nav-link;
+
+      > .router-link-exact-active {
+        @extend %nav-link-active;
+      }
+
+      > a {
+        // 鼠标悬停状态时添加 : before 伪元素
+        @include mixins.before-pseudo;
+
+        // 添加 Vuetify 状态
+        @include vuetifyStates.states($active: false);
+      }
+    }
+
+    // 垂直导航栏导航组
+    .nav-group {
+      // 如果导航链接/导航组在导航组内部（三层嵌套），则缩小其图标尺寸
+      .nav-group,
+      .nav-link {
+        .nav-item-icon {
+          @extend %vertical-nav-items-nested-icon;
+        }
+      }
+
+      // 第二层下的子项隐藏图标
+      & .nav-group {
+        .nav-link,
+        .nav-group {
+          .nav-item-icon {
+            @extend %vertical-nav-items-icon-after-2nd-level;
+          }
+        }
+      }
+
+      .nav-group-arrow {
+        flex-shrink: 0;
+        transform-origin: center;
+        transition: transform variables.$vertical-nav-nav-group-arrow-transition-duration variables.$vertical-nav-nav-group-arrow-transition-timing-function;
+        will-change: transform;
+      }
+
+      // 导航组展开时旋转箭头图标 90°
+      &.open {
+        > .nav-group-label .nav-group-arrow {
+          transform: rotateZ(90deg);
+        }
+      }
+
+      // 导航项标签
+      > :first-child {
+        // 鼠标悬停状态时添加 : before 伪元素
+        @include mixins.before-pseudo;
+
+        // 添加 Vuetify 状态
+        @include vuetifyStates.states($active: false);
+      }
+
+      // 导航组活动状态 / 打开时
+      &.active,
+      &.open {
+        > :first-child {
+          @extend %vertical-nav-group-open-active;
+        }
+      }
+    }
+  }
+}
+
+// 过渡效果
+.vertical-nav-section-title-enter-active,
+.vertical-nav-section-title-leave-active {
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.vertical-nav-section-title-enter-from,
+.vertical-nav-section-title-leave-to {
+  opacity: 0;
+  transform: translateX(15px);
+
+  @include layoutsMixins.rtl {
+    transform: translateX(-15px);
+  }
+}
+
+.transition-slide-x-enter-active,
+.transition-slide-x-leave-active {
+  transition: opacity 0.1s ease-in-out, transform 0.12s ease-in-out;
+}
+
+.transition-slide-x-enter-from,
+.transition-slide-x-leave-to {
+  opacity: 0;
+  transform: translateX(-15px);
+
+  @include layoutsMixins.rtl {
+    transform: translateX(15px);
+  }
+}
+
+.vertical-nav-app-title-enter-active,
+.vertical-nav-app-title-leave-active {
+  transition: opacity 0.1s ease-in-out, transform 0.12s ease-in-out;
+}
+
+.vertical-nav-app-title-enter-from,
+.vertical-nav-app-title-leave-to {
+  opacity: 0;
+  transform: translateX(-15px);
+
+  @include layoutsMixins.rtl {
+    transform: translateX(15px);
+  }
+}
+

@@ -1,0 +1,28 @@
+// @use "@styles/style.scss";
+
+// 垂直导航栏
+$layout-vertical-nav-z-index: 12 !default;
+$layout-vertical-nav-width: 260px !default;
+$layout-vertical-nav-collapsed-width: 75px !default;
+
+// 水平导航栏
+$layout-horizontal-nav-z-index: 11 !default;
+$layout-horizontal-nav-navbar-height: 64px !default;
+
+// 导航条
+$layout-vertical-nav-navbar-height: 64px !default;
+$layout-vertical-nav-navbar-is-contained: true !default;
+$layout-vertical-nav-layout-navbar-z-index: 11 !default;
+$layout-horizontal-nav-layout-navbar-z-index: 11 !default;
+
+// 页面内容固定宽度样式
+$layout-boxed-content-width: 1440px !default;
+
+// 页脚
+$layout-vertical-nav-footer-height: 56px !default;
+
+// 导航栏覆盖
+$layout-overlay-z-index: 11 !default;
+
+// RTL
+$enable-rtl-styles: true !default;

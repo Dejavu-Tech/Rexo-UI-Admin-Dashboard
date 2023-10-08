@@ -1,0 +1,5 @@
+@forward "@core/scss/template/variables";
+
+// ℹ️ 如需实现自定义的外观和风格，请删除上面的导入并取消下面的注释以覆盖核心变量
+// 并将 <variable-name> 替换为要覆盖的核心变量名称，将 <variable-value> 替换为想要设置的自定义变量值
+// @forward "@core/scss/template/variables" with ($<variable-name>: <variable-value>);

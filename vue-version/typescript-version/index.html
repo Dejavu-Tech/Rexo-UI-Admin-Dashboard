@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rexo-UI 后台管理模板</title>
+  <link rel="stylesheet" type="text/css" href="/loader.css" />
+</head>
+
+<body>
+  <div id="app">
+    <div id="loading-bg">
+      <div class="loading-logo">
+        <!-- SVG Logo -->
+        <svg width="80" height="100" viewBox="0 0 33 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#00000026" fill-rule="evenodd" clip-rule="evenodd" d="M30.9,18.5l-7.1-1.4v-1.7c0-1.2,1.4-1.9,2.4-1.2l5.6,4.1C31.5,18.6,31.2,18.6,30.9,18.5z"/>
+          <path fill="var(--initial-loader-color)" fill-rule="evenodd" clip-rule="evenodd" d="M32.5,19.6v6.8c0,0.5-0.3,1-0.7,1.3l-13,7.6c-1,0.6-2.3-0.1-2.3-1.3v-6.6c0-0.5,0.3-1,0.7-1.3l5.8-3.4c0.5-0.3,0.7-0.8,0.7-1.3v-5.9c0-1.2,1.4-2,2.4-1.2l5.7,4.2C32.3,18.7,32.5,19.1,32.5,19.6z"/>
+          <linearGradient id="1" gradientUnits="userSpaceOnUse" x1="1753.3074" y1="-2021.7152" x2="1741.6665" y2="-1992.2675" gradientTransform="matrix(0.346 0 0 -0.346 -580.3893 -668.2318)">
+            <stop offset="0" stop-color="#FFFFFF5F"/>
+            <stop offset="1" stop-color="#FFFFFF00"/>
+          </linearGradient>
+          <path fill="url(#1)" fill-rule="evenodd" clip-rule="evenodd" d="M32.5,19.6v6.8c0,0.5-0.3,1-0.7,1.3l-13,7.6c-1,0.6-2.3-0.1-2.3-1.3v-6.6c0-0.5,0.3-1,0.7-1.3l5.8-3.4c0.5-0.3,0.7-0.8,0.7-1.3v-5.9c0-1.2,1.4-2,2.4-1.2l5.7,4.2C32.3,18.7,32.5,19.1,32.5,19.6z"/>
+          <path fill="var(--initial-loader-color)" fill-rule="evenodd" clip-rule="evenodd" d="M16.5,2v6.6c0,0.5-0.3,1-0.7,1.3L10,13.3c-0.5,0.3-0.7,0.8-0.7,1.3v5.9c0,1.2-1.4,2-2.4,1.2l-5.7-4.2c-0.4-0.3-0.6-0.7-0.6-1.2V9.6c0-0.5,0.3-1,0.7-1.3l13-7.6C15.3,0.1,16.5,0.9,16.5,2z"/>
+          <linearGradient id="2" gradientUnits="userSpaceOnUse" x1="1714.454" y1="-1978.3953" x2="1696.9752" y2="-1949.6794" gradientTransform="matrix(0.346 0 0 -0.346 -580.3893 -668.2318)">
+            <stop offset="0" stop-color="#FFFFFF00"/>
+            <stop offset="1" stop-color="#00000026"/>
+          </linearGradient>
+          <path fill="url(#2)" fill-rule="evenodd" clip-rule="evenodd" d="M16.5,2v6.6c0,0.5-0.3,1-0.7,1.3L10,13.3c-0.5,0.3-0.7,0.8-0.7,1.3v5.9c0,1.2-1.4,2-2.4,1.2l-5.7-4.2c-0.4-0.3-0.6-0.7-0.6-1.2V9.6c0-0.5,0.3-1,0.7-1.3l13-7.6C15.3,0.1,16.5,0.9,16.5,2z"/>
+          <path fill="#0000005F" fill-rule="evenodd" clip-rule="evenodd" d="M2.2,17.5l7.1,1.4v1.7c0,1.2-1.4,2-2.4,1.2l-5.6-4.1C1.5,17.4,1.8,17.4,2.2,17.5z"/>
+          <path fill="var(--initial-loader-color)" fill-rule="evenodd" clip-rule="evenodd" d="M14.2,27.8l-5.7,3.3c-0.5,0.3-1,0.3-1.5,0l-5.8-3.4c-0.5-0.3-0.7-0.8-0.7-1.3v-6.6c0-1.2,1.3-1.9,2.3-1.3l6.5,3.8l5,2.9C15.3,25.7,15.3,27.2,14.2,27.8z"/>
+          <linearGradient id="3" gradientUnits="userSpaceOnUse" x1="1686.0101" y1="-1999.8015" x2="1722.6621" y2="-2020.207" gradientTransform="matrix(0.346 0 0 -0.346 -580.3893 -668.2318)">
+            <stop offset="0" stop-color="#FFFFFF3F"/>
+            <stop offset="1" stop-color="#FFFFFF6F"/>
+          </linearGradient>
+          <path fill="url(#3)" fill-rule="evenodd" clip-rule="evenodd" d="M14.2,27.8l-5.7,3.3c-0.5,0.3-1,0.3-1.5,0l-5.8-3.4c-0.5-0.3-0.7-0.8-0.7-1.3v-6.6c0-1.2,1.3-1.9,2.3-1.3l6.5,3.8l5,2.9C15.3,25.7,15.3,27.2,14.2,27.8z"/>
+          <path fill="#0000004F" fill-rule="evenodd" clip-rule="evenodd" d="M30.9,18.5l-7.1-1.4v-1.7c0-1.2,1.4-1.9,2.4-1.2l5.6,4.1C31.5,18.6,31.2,18.6,30.9,18.5z"/>
+          <path fill="var(--initial-loader-color)" fill-rule="evenodd" clip-rule="evenodd" d="M32.5,9.6v6.6c0,1.2-1.3,1.9-2.3,1.3l-6.5-3.8l-5-2.9c-1-0.6-1-2,0-2.6l5.7-3.3c0.5-0.3,1-0.3,1.5,0l5.8,3.4C32.2,8.5,32.5,9,32.5,9.6z"/>
+          <linearGradient id="4" gradientUnits="userSpaceOnUse" x1="1737.0023" y1="-1950.7865" x2="1779.0452" y2="-1976.0214" gradientTransform="matrix(0.346 0 0 -0.346 -580.3893 -668.2318)">
+            <stop offset="0" stop-color="#FFFFFF5F"/>
+            <stop offset="1" stop-color="#FFFFFF8F"/>
+          </linearGradient>
+          <path fill="url(#4)" fill-rule="evenodd" clip-rule="evenodd" d="M32.5,9.6v6.6c0,1.2-1.3,1.9-2.3,1.3l-6.5-3.8l-5-2.9c-1-0.6-1-2,0-2.6l5.7-3.3c0.5-0.3,1-0.3,1.5,0l5.8,3.4C32.2,8.5,32.5,9,32.5,9.6z"/>
+        </svg>
+      </div>
+      <div class="loading">
+        <div class="effect-1 effects"></div>
+        <div class="effect-2 effects"></div>
+        <div class="effect-3 effects"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+  <script>
+    const loaderColor = localStorage.getItem('rexo-ui-initial-loader-bg') || '#FFFFFF'
+    const primaryColor = localStorage.getItem('rexo-ui-initial-loader-color') || '#3366CC'
+
+    if (loaderColor)
+      document.documentElement.style.setProperty('--initial-loader-bg', loaderColor)
+
+    if (primaryColor)
+      document.documentElement.style.setProperty('--initial-loader-color', primaryColor)
+  </script>
+</body>
+
+</html>

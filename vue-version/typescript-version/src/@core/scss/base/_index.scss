@@ -1,0 +1,48 @@
+@use "sass:map";
+
+// 布局
+@use "vertical-nav";
+@use "horizontal-nav";
+@use "default-layout";
+@use "default-layout-w-vertical-nav";
+@use "default-layout-w-horizontal-nav";
+
+// 布局包
+@use "layouts";
+
+// 全局皮肤
+@use "skins";
+
+// 组件
+@use "components";
+
+// 公共样式定义
+@use "utilities";
+
+// 路由转场效果
+@use "route-transitions";
+
+// 杂项
+@use "misc";
+
+// 深色主题
+@use "dark";
+
+// 引入库
+@use "libs/perfect-scrollbar";
+
+a {
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+}
+
+// Vuetify 3 中不再直接提供类似 Vuetify 2 的通用样式 margin-bottom
+p {
+  margin-block-end: 1rem;
+}
+
+// Iconify 图标尺寸
+svg.iconify {
+  block-size: 1em;
+  inline-size: 1em;
+}

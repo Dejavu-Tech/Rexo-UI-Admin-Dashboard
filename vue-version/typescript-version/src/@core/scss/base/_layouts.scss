@@ -1,0 +1,58 @@
+@use "@configured-variables" as variables;
+
+/* 此文件样式扩展了现有的布局包的样式，用于处理与全局布局无关的情况 */
+
+// 当 v-layout 作为 .page-content-container 的第一个子元素时会自动添加 display:flex，导致页面高度无法被正确获取
+// .layout-wrapper.layout-nav-type-vertical {
+//   &.layout-content-height-fixed {
+//     .page-content-container {
+//       > .v-layout:first-child > :not(.v-navigation-drawer):first-child {
+//         flex-grow: 1;
+//         block-size: 100%;
+//       }
+//     }
+//   }
+// }
+.layout-wrapper.layout-nav-type-vertical {
+  &.layout-content-height-fixed {
+    .page-content-container {
+      > .v-layout:first-child {
+        overflow: hidden;
+        min-block-size: 100%;
+
+        > .v-main {
+          // overflow-y: auto;
+
+          .v-main__wrap > :first-child {
+            block-size: 100%;
+            overflow-y: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 在某些页面中让 div / v-layout 占满整个视口高度，例如电子邮件
+.layout-wrapper.layout-nav-type-horizontal {
+  &.layout-content-height-fixed {
+    > .layout-page-content {
+      display: flex;
+    }
+  }
+}
+
+// 悬浮导航条样式
+@if variables.$vertical-nav-navbar-style == "floating" {
+  // 如果导航条是浮动的（在 %layout-navbar-sticky 占位符中），在导航条上方添加间距
+  .layout-wrapper.layout-nav-type-vertical.layout-navbar-sticky {
+    .layout-navbar {
+      inset-block-start: variables.$vertical-nav-floating-navbar-top;
+    }
+
+    // 如果导航条是浮动的将 vertical-nav-floating-navbar-top 添加为 .layout-page-content 的上边距
+    .layout-page-content {
+      margin-block-start: variables.$vertical-nav-floating-navbar-top;
+    }
+  }
+}

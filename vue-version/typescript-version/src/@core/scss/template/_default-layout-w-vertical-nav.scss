@@ -1,0 +1,20 @@
+@use "@core/scss/base/mixins";
+
+.layout-wrapper.layout-nav-type-vertical {
+  // 页脚布局
+  .layout-footer {
+    $ele-layout-footer: &;
+
+    .footer-content-container {
+      // 粘性定位页脚
+      @at-root {
+        // SCSS 转换：.layout-footer-sticky#{$ele-layout-footer} => .layout-footer-sticky.layout-wrapper.layout-nav-type-vertical .layout-footer
+        .layout-footer-sticky#{$ele-layout-footer} {
+          .footer-content-container {
+            @include mixins.elevation(2);
+          }
+        }
+      }
+    }
+  }
+}

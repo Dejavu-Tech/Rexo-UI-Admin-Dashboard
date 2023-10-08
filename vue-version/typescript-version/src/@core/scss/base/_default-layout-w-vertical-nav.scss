@@ -1,0 +1,100 @@
+@use "@configured-variables" as variables;
+@use "@core/scss/base/placeholders" as *;
+@use "@core/scss/template/placeholders" as *;
+@use "misc";
+@use "@core/scss/base/mixins";
+
+$header: ".layout-navbar";
+
+@if variables.$layout-vertical-nav-navbar-is-contained {
+  $header: ".layout-navbar .navbar-content-container";
+}
+
+.layout-wrapper.layout-nav-type-vertical {
+  // 导航条布局
+  // 凸起样式的导航条
+  @if variables.$vertical-nav-navbar-style == "elevated" {
+    // 添加过渡效果
+    #{$header} {
+      transition: padding 0.2s ease, background-color 0.18s ease;
+    }
+
+    // 如果导航条的弹窗或下拉列表为打开并超过页面高度时添加边框圆角
+    @if variables.$layout-vertical-nav-navbar-is-contained {
+      #{$header} {
+        border-radius: 0 0 variables.$default-layout-with-vertical-nav-navbar-footer-roundness variables.$default-layout-with-vertical-nav-navbar-footer-roundness;
+      }
+    }
+
+    // 粘性定位导航条滚动样式
+    @at-root {
+      // 对话框被打开且窗口没有滚动条时浏览器会移除布局中的 window-scrolled 类
+      // 使用 : not 伪类的 HTML 选择器来解决此问题
+      html.v-overlay-scroll-blocked:not([style*="--v-body-scroll-y:0px;"]) .layout-navbar-sticky,
+      &.window-scrolled.layout-navbar-sticky {
+
+        #{$header} {
+          @extend %default-layout-vertical-nav-scrolled-sticky-elevated-nav;
+          @extend %default-layout-vertical-nav-floating-navbar-and-sticky-elevated-navbar-scrolled;
+        }
+
+        .navbar-blur#{$header} {
+          @extend %blurry-bg;
+        }
+      }
+    }
+  }
+
+  // 悬浮导航条
+  @else if  variables.$vertical-nav-navbar-style == "floating" {
+    // 导航条所有样式均重写 .layout-navbar
+    .layout-navbar {
+      &.navbar-blur {
+        @extend %default-layout-vertical-nav-floating-navbar-overlay;
+      }
+    }
+
+    &:not(.layout-navbar-sticky) {
+      #{$header} {
+        margin-block-start: variables.$vertical-nav-floating-navbar-top;
+      }
+    }
+
+    #{$header} {
+      @if variables.$layout-vertical-nav-navbar-is-contained {
+        border-radius: variables.$default-layout-with-vertical-nav-navbar-footer-roundness;
+      }
+
+      background-color: rgb(var(--v-theme-surface));
+
+      @extend %default-layout-vertical-nav-floating-navbar-and-sticky-elevated-navbar-scrolled;
+    }
+
+    .navbar-blur#{$header} {
+      @extend %blurry-bg;
+    }
+  }
+
+  // 页脚布局
+  .layout-footer {
+    $ele-layout-footer: &;
+
+    .footer-content-container {
+      border-radius: variables.$default-layout-with-vertical-nav-navbar-footer-roundness variables.$default-layout-with-vertical-nav-navbar-footer-roundness 0 0;
+
+      // 粘性定位页脚
+      @at-root {
+        // SCSS 转换：.layout-footer-sticky#{$ele-layout-footer} => .layout-footer-sticky.layout-wrapper.layout-nav-type-vertical .layout-footer
+        .layout-footer-sticky#{$ele-layout-footer} {
+          .footer-content-container {
+            background-color: rgb(var(--v-theme-surface));
+            padding-block: 0;
+            padding-inline: 1.2rem;
+
+            @include mixins.elevation(3);
+          }
+        }
+      }
+    }
+  }
+}
